@@ -1,0 +1,24 @@
+﻿<#@ template  debug="true" hostSpecific="true" language="C#"#>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ assembly name="$(SolutionDir)JiffyEditor\bin\Debug\UnityEngine.dll" #>
+<#@ assembly name="$(SolutionDir)JiffyEditor\bin\Debug\JiffyEditor.dll" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\ClassTemplates.tt" #>
+<#
+  Essence essence = new Essence(typeof(Family));
+  essence.createContent = true;
+  essence.className = essence.classType.ToString() + "Editor"; 
+  essence.indent = "  ";
+  
+   //GenerateSimpleEditor(essence);
+   GeneratePropertyDrawer(essence); 
+ 
+#>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\SimpleEditor.tt" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\SimplePropertyDrawer.tt" #>

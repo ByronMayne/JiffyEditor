@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7A6EFB2E-859D-44C4-8184-5963EE12C762}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JiffyEditor</RootNamespace>
+    <AssemblyName>JiffyEditor</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClassWriter.cs" />
+    <None Include="Jiffy\ClassGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClassGenerator.tt</DependentUpon>
+    </None>
+    <None Include="Jiffy\Jiffy 2.0\DeepClass.tt" />
+    <None Include="Jiffy\Jiffy 2.0\Essence.tt" />
+    <None Include="Jiffy\Jiffy 2.0\ClassTemplates.tt" />
+    <Compile Include="Jiffy\Jiffy 2.0\Family.cs" />
+    <Compile Include="Jiffy\Jiffy 2.0\JiffyX.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JiffyX.tt</DependentUpon>
+    </Compile>
+    <None Include="Jiffy\Jiffy 2.0\SimpleEditor.tt" />
+    <None Include="Jiffy\Jiffy 2.0\Utility.tt" />
+    <None Include="Jiffy\Jiffy 2.0\JiffyX.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>JiffyX.cs</LastGenOutput>
+    </None>
+    <None Include="Jiffy\LayoutTypes\DeepNestedClass.tt" />
+    <None Include="Jiffy\LayoutTypes\InLineClass.tt" />
+    <None Include="Jiffy\MultiOutputExtensions.tt" />
+    <None Include="Jiffy\SharedData.tt" />
+    <None Include="Jiffy\LayoutTypes\Simple.tt" />
+    <None Include="Jiffy\Jiffy 2.0\SimplePropertyDrawer.tt" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Jiffy\ClassGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ClassGenerator.cs</LastGenOutput>
+      <Parameters>&lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
+&lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ParameterStorage&gt;
+    &lt;Name&gt;classType&lt;/Name&gt;
+    &lt;Value&gt;Family&lt;/Value&gt;
+  &lt;/ParameterStorage&gt;
+&lt;/ArrayOfParameterStorage&gt;</Parameters>
+      <FormatOutput>False</FormatOutput>
+    </None>
+    <None Include="Jiffy\UnityFieldInfo.tt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

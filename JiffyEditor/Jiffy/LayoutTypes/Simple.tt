@@ -1,0 +1,12 @@
+﻿<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\UnityFieldInfo.tt"#>
+
+<#+
+//Shared Data would have root class and all it's fields
+public void CreateSimpleEditor(SharedData sharedData)
+{
+
+}
+#>

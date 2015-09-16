@@ -1,0 +1,9 @@
+﻿<#@ output extension=".cs" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\UnityFieldInfo.tt"#>
+<#+
+    public void CreateClass(List<UnityFieldInfo> classTree)
+    {
+    }
+#>

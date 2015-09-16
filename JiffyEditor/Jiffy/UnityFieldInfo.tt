@@ -1,0 +1,147 @@
+﻿<#@ output extension=".cs" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#+ public class UnityFieldInfo
+  {
+    private int m_Depth = 0;
+    
+    private bool m_IsRoot = false;
+
+    private string m_RootName;
+
+    private FieldInfo m_Field;
+
+    private UnityFieldInfo m_Parent;
+
+    private List<UnityFieldInfo> m_children; 
+
+    public FieldInfo field
+    {
+        get
+        {
+            return m_Field;
+        }
+        set
+        {
+            m_Field = value; 
+        }
+    }
+
+    public int depth
+    {
+        get
+        {
+            return m_Depth; 
+        }
+        protected set
+        {
+            m_Depth = value; 
+        }
+    }
+
+    public int childCount
+    {
+        get
+        {
+            return m_children.Count;
+        }
+    }
+
+    public string name
+    {
+        get
+        {
+            return field.Name;
+        }
+    }
+
+    public string fieldname
+    {
+      get
+      {
+        if(m_IsRoot)
+        {
+          return m_RootName;
+        }
+        else
+        {
+          return field.DeclaringType.Name;
+        }
+      }
+    }
+
+    public string GetNestedName()
+    {
+      string name = field.DeclaringType.Name; 
+
+      UnityFieldInfo parent = m_Parent;
+
+      while(parent != null)
+      {
+        if(parent.field != null)
+        {
+          name = parent.fieldname + "." + name;
+          parent = parent.m_Parent;
+        }
+
+        parent = parent.m_Parent;
+
+      }
+      
+      return name;
+    }
+
+    public void AddChild(UnityFieldInfo child)
+    {
+        child.m_Parent = this; 
+        m_children.Add(child); 
+        child.depth = depth + 1;
+    }
+
+    public void RemoveChild(UnityFieldInfo child)
+    {
+        m_children.Remove(child);
+        child.depth = 0; 
+    }
+
+    public List<UnityFieldInfo> children
+    {
+        get
+        {
+            return m_children;
+        }
+        set
+        {
+            m_children = value; 
+        }
+    }
+
+    public UnityFieldInfo this[int index]
+    {
+        get
+        {
+            return children[index];
+        }
+        set
+        {
+            children[index] = value;
+        }
+    }
+
+    public UnityFieldInfo(FieldInfo field)
+    {
+     this.field = field;
+     this.m_IsRoot = false;
+     this.m_RootName = null;
+     children = new List<UnityFieldInfo>(); 
+    }
+    public UnityFieldInfo(FieldInfo field, string rootName)
+    {
+     this.field = field;
+     this.m_IsRoot = true;
+     this.m_RootName = rootName;
+     children = new List<UnityFieldInfo>(); 
+    }
+
+  };
+#>
