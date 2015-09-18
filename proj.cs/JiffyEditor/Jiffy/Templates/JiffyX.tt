@@ -9,7 +9,6 @@
 <#@ import namespace="System.Collections" #>
 <#@ assembly name="$(SolutionDir)JiffyEditor\bin\Debug\UnityEngine.dll" #>
 <#@ assembly name="$(SolutionDir)JiffyEditor\bin\Debug\JiffyEditor.dll" #>
-<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\ClassTemplates.tt" #>
 <#
   Essence essence = new Essence(typeof(Family));
   essence.createContent = true;
@@ -20,5 +19,5 @@
    GeneratePropertyDrawer(essence); 
  
 #>
-<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\SimpleEditor.tt" #>
-<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\SimplePropertyDrawer.tt" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Templates\Class Types\SimpleEditor.tt" #>
+<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Templates\Class Types\SimplePropertyDrawer.tt" #>

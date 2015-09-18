@@ -47,54 +47,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassWriter.cs" />
-    <None Include="Jiffy\ClassGenerator.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ClassGenerator.tt</DependentUpon>
-    </None>
-    <None Include="Jiffy\Jiffy 2.0\DeepClass.tt" />
-    <None Include="Jiffy\Jiffy 2.0\Essence.tt" />
-    <None Include="Jiffy\Jiffy 2.0\ClassTemplates.tt" />
-    <Compile Include="Jiffy\Jiffy 2.0\Family.cs" />
-    <Compile Include="Jiffy\Jiffy 2.0\JiffyX.cs">
+    <None Include="Jiffy\Templates\Essence.tt" />
+    <Compile Include="Jiffy\Family.cs" />
+    <Compile Include="Jiffy\Templates\JiffyX.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>JiffyX.tt</DependentUpon>
     </Compile>
-    <None Include="Jiffy\Jiffy 2.0\SimpleEditor.tt" />
-    <None Include="Jiffy\Jiffy 2.0\Utility.tt" />
-    <None Include="Jiffy\Jiffy 2.0\JiffyX.tt">
+    <None Include="Jiffy\Templates\Class Types\SimpleEditor.tt" />
+    <None Include="Jiffy\Templates\Utility.tt" />
+    <None Include="Jiffy\Templates\JiffyX.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>JiffyX.cs</LastGenOutput>
     </None>
-    <None Include="Jiffy\LayoutTypes\DeepNestedClass.tt" />
-    <None Include="Jiffy\LayoutTypes\InLineClass.tt" />
-    <None Include="Jiffy\MultiOutputExtensions.tt" />
-    <None Include="Jiffy\SharedData.tt" />
-    <None Include="Jiffy\LayoutTypes\Simple.tt" />
-    <None Include="Jiffy\Jiffy 2.0\SimplePropertyDrawer.tt" />
+    <None Include="Jiffy\Templates\Class Types\SimplePropertyDrawer.tt" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Jiffy\ClassGenerator.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ClassGenerator.cs</LastGenOutput>
-      <Parameters>&lt;%3fxml version="1.0" encoding="utf-16"%3f&gt;
-&lt;ArrayOfParameterStorage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ParameterStorage&gt;
-    &lt;Name&gt;classType&lt;/Name&gt;
-    &lt;Value&gt;Family&lt;/Value&gt;
-  &lt;/ParameterStorage&gt;
-&lt;/ArrayOfParameterStorage&gt;</Parameters>
-      <FormatOutput>False</FormatOutput>
-    </None>
-    <None Include="Jiffy\UnityFieldInfo.tt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Jiffy\Unity UI\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

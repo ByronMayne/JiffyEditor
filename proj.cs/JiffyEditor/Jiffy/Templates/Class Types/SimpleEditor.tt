@@ -1,4 +1,4 @@
-﻿<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Jiffy 2.0\Essence.tt" #>
+﻿<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Templates\Essence.tt" #>
 <#+
     public void GenerateSimpleEditor(Essence essence)
     {
