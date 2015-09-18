@@ -11,6 +11,10 @@
     <AssemblyName>JiffyEditor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <!-- This is used to create the MDBs to Debug our Dlls Make sure you have the registry key set -->
+    <UnityInstallFolder>$(Registry:HKEY_CURRENT_USER\Software\Unity Technologies\Unity Editor 5.x@Location)</UnityInstallFolder>
+    <ReferencePath>$(UnityInstallFolder)\Data\Managed</ReferencePath>
+    <MonoMdbGenerator>$(UnityInstallFolder)\Data\MonoBleedingEdge\lib\mono\4.0\pdb2mdb.exe</MonoMdbGenerator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,9 +75,20 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
+    <!-- Create our PDBs-->
+    <CallTarget Targets="GenerateMonoSymbols" Condition=" Exists('$(TargetDir)$(TargetName).pdb') " />
     <!--Copy to our Unity Project -->
+    <Message Text="Copying: $(TargetDir)$(TargetName).dll' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll'" Importance="High" />
     <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll" />
+    
+    <Message Condition="Exists('$(TargetDir)$(TargetName).pdb')" Text="Copying \n From: '$(TargetDir)$(TargetName).pdb' \n To: '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb'" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb" />
+    
+    <Message Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" Text="Copying: '$(TargetDir)$(TargetName).dll.mdb' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb'" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb" />
+  </Target>
+  <Target Name="GenerateMonoSymbols">
+    <Message Text="Pdb2Mdb Target: $(ProjectName) -&gt; $(TargetPath).mdb" Importance="High" />
+    <Exec Command="&quot;$(MonoMdbGenerator)&quot; $(AssemblyName).dll" WorkingDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" />
   </Target>
 </Project>
