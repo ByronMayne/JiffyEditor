@@ -15,6 +15,7 @@
     <UnityInstallFolder>$(Registry:HKEY_CURRENT_USER\Software\Unity Technologies\Unity Editor 5.x@Location)</UnityInstallFolder>
     <ReferencePath>$(UnityInstallFolder)\Data\Managed</ReferencePath>
     <MonoMdbGenerator>$(UnityInstallFolder)\Data\MonoBleedingEdge\lib\mono\4.0\pdb2mdb.exe</MonoMdbGenerator>
+    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,28 +52,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Jiffy\Templates\Essence.tt" />
     <Compile Include="Jiffy\Family.cs" />
-    <Compile Include="Jiffy\Templates\JiffyX.cs">
+    <Compile Include="Jiffy\JiffyEditor.cs" />
+    <None Include="Jiffy\Templates\Generators\SimpleEditor.t4" />
+    <None Include="Jiffy\Templates\JiffyGenerator.tt" />
+    <None Include="Jiffy\Templates\Generators\SimplePropertyDrawer.t4" />
+    <Compile Include="Jiffy\Templates\Essence.cs" />
+    <Compile Include="Jiffy\Templates\JiffyGeneratorConstructor.cs" />
+    <Compile Include="Jiffy\Templates\JiffyGeneratorPreprocessor.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>JiffyX.tt</DependentUpon>
+      <DependentUpon>JiffyGeneratorPreprocessor.tt</DependentUpon>
     </Compile>
-    <None Include="Jiffy\Templates\Class Types\SimpleEditor.tt" />
-    <None Include="Jiffy\Templates\Utility.tt" />
-    <None Include="Jiffy\Templates\JiffyX.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>JiffyX.cs</LastGenOutput>
-    </None>
-    <None Include="Jiffy\Templates\Class Types\SimplePropertyDrawer.tt" />
+    <Compile Include="Jiffy\Templates\TemplateUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Jiffy\Templates\JiffyGeneratorPreprocessor.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>JiffyGeneratorPreprocessor.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Jiffy\Unity UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <!-- Create our PDBs-->
@@ -80,10 +82,8 @@
     <!--Copy to our Unity Project -->
     <Message Text="Copying: $(TargetDir)$(TargetName).dll' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll'" Importance="High" />
     <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll" />
-    
     <Message Condition="Exists('$(TargetDir)$(TargetName).pdb')" Text="Copying \n From: '$(TargetDir)$(TargetName).pdb' \n To: '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb'" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb" />
-    
     <Message Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" Text="Copying: '$(TargetDir)$(TargetName).dll.mdb' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb'" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb" />
   </Target>

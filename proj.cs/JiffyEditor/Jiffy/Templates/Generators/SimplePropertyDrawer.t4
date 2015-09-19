@@ -1,4 +1,5 @@
-﻿<#+
+﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+<#+
     public void GeneratePropertyDrawer(Essence essence)
     {
       WriteLine("using UnityEditor;");
@@ -75,7 +76,7 @@ public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
       { 
 #>
 /// <summary>
-/// Type: <#= Utility.NiceTypeName(info.FieldType) #>
+/// Type: <#= TemplateUtility.NiceTypeName(info.FieldType) #>
 /// </summary>
 protected SerializedProperty <#= info.Name #>;
 <#+

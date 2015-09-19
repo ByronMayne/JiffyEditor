@@ -1,4 +1,5 @@
-﻿<#@ include file="$(SolutionDir)JiffyEditor\Jiffy\Templates\Essence.tt" #>
+﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+<#@ import namespace="System.Reflection" #>
 <#+
     public void GenerateSimpleEditor(Essence essence)
     {
@@ -34,6 +35,7 @@
     {
       PushIndent(essence.indent);
 
+      WriteLine("public GUIContent m_ScriptContent = new GUIContent(\"Script\")");
       essence.Foreach( (FieldInfo info) => 
       { 
 #>
@@ -46,11 +48,16 @@ public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
     public void PrintVariables(Essence essence)
     {
       PushIndent(essence.indent);
+
+      WriteLine("/// <summary>");
+      WriteLine("/// Type: Monoscript");
+      WriteLine("/// <summary>");
+      WriteLine("protected SerializedProperty m_Script;");
       essence.Foreach( (FieldInfo info) => 
       { 
 #>
 /// <summary>
-/// Type: <#= Utility.NiceTypeName(info.FieldType) #>
+/// Type: <#= TemplateUtility.NiceTypeName(info.FieldType) #>
 /// </summary>
 protected SerializedProperty <#= info.Name #>;
 <#+
@@ -68,6 +75,7 @@ protected SerializedProperty <#= info.Name #>;
       WriteLine("protected virtual void OnEnable()");
       WriteLine("{");
       PushIndent(essence.indent);
+      WriteLine("m_Script = serializedObject.FindProperty(\"m_Script\");");
       essence.Foreach( (FieldInfo info) => 
       { 
 #>
@@ -92,6 +100,14 @@ protected SerializedProperty <#= info.Name #>;
       WriteLine("EditorGUI.BeginChangeCheck();");
       WriteLine("{");
       PushIndent(essence.indent);
+      if(essence.createContent)
+      {
+        WriteLine("EditorGUILayout.PropertyField(m_Script, m_ScriptContent);");
+      }
+      else
+      {
+        WriteLine("EditorGUILayout.PropertyField(m_Script);");
+      }
       essence.Foreach( (FieldInfo info) => 
       { 
         if(essence.createContent)
