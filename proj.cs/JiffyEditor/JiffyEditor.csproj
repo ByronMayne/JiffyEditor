@@ -52,10 +52,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Jiffy\Family.cs" />
     <Compile Include="Jiffy\JiffyEditor.cs" />
     <None Include="Jiffy\Templates\Generators\SimpleEditor.t4" />
-    <None Include="Jiffy\Templates\JiffyGenerator.tt" />
     <None Include="Jiffy\Templates\Generators\SimplePropertyDrawer.t4" />
     <Compile Include="Jiffy\Templates\Essence.cs" />
     <Compile Include="Jiffy\Templates\JiffyGeneratorConstructor.cs" />
@@ -76,19 +74,31 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- 
+  Sadily I can't get this to work yet. I will get back to it. 
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TextTemplating\Microsoft.TextTemplating.targets"/>
+  <PropertyGroup>
+    <TransformOnBuild>true</TransformOnBuild>
+  </PropertyGroup>
+  -->
   <Target Name="AfterBuild">
+    <Message Text="--------=||  After Build  ||=--------" Importance="high" />
     <!-- Create our PDBs-->
     <CallTarget Targets="GenerateMonoSymbols" Condition=" Exists('$(TargetDir)$(TargetName).pdb') " />
     <!--Copy to our Unity Project -->
-    <Message Text="Copying: $(TargetDir)$(TargetName).dll' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll'" Importance="High" />
+    <Message Text="Copying Dll -  From: $(TargetDir)$(TargetName).dll" Importance="high" />
+    <Message Text="               To: $(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll" Importance="High" />
     <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll" />
-    <Message Condition="Exists('$(TargetDir)$(TargetName).pdb')" Text="Copying \n From: '$(TargetDir)$(TargetName).pdb' \n To: '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb'" Importance="High" />
+    <Message Text="Copying pdb: - From: $(TargetDir)$(TargetName).pdb" Importance="high" />
+    <Message Text="               To: $(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).pdb" />
-    <Message Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" Text="Copying: '$(TargetDir)$(TargetName).dll.mdb' to '$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb'" Importance="High" />
+    <Message Text="Copying mdb: - From: $(TargetDir)$(TargetName).dll.mdb" Importance="high" />
+    <Message Text="               To: $(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb" Importance="High" />
     <Copy Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName).dll.mdb" />
+    <Message Text="--------=|| Complete ||=--------" Importance="high" />
   </Target>
   <Target Name="GenerateMonoSymbols">
-    <Message Text="Pdb2Mdb Target: $(ProjectName) -&gt; $(TargetPath).mdb" Importance="High" />
+    <Message Text="Generating Mono Symbols..." Importance="High" />
     <Exec Command="&quot;$(MonoMdbGenerator)&quot; $(AssemblyName).dll" WorkingDirectory="$(MSBuildProjectDirectory)\$(OutputPath)" />
   </Target>
 </Project>

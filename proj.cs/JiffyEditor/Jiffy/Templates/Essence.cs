@@ -1,6 +1,17 @@
 ﻿using System;
+using UnityEngine;
+using System.Collections;
 using System.Reflection;
-public class Essence
+using System.Linq;
+using UnityEditor;
+
+
+/// <summary>
+/// We inherit from ScriptableObject so that we can serialize this class in an
+/// Editor window. 
+/// </summary>
+[Serializable]
+public class Essence : ScriptableObject
 {
   public enum GeneratorTypes
   {
@@ -8,12 +19,15 @@ public class Essence
     PropertyDrawer
   }
 
+  [SerializeField]
   private string m_ClassName;
-  private Type m_ClassType;
-  private string m_Indent = " ";
-  private FieldInfo[] m_SerializedFields;
+  [SerializeField]
+  private string m_Indent = "  ";
+  [SerializeField]
   private bool m_CreateContent;
-  private GeneratorTypes m_Type;
+  internal Type m_ClassType;
+  private FieldInfo[] m_SerializedFields;
+  private GeneratorTypes m_OutputEditorType;
 
   public Type classType
   {
@@ -25,6 +39,23 @@ public class Essence
   {
     get { return m_Indent; }
     set { m_Indent = value; }
+  }
+
+  public int indentCount
+  {
+    get { return m_Indent.Length; }
+    set 
+    {
+      if(m_Indent.Length != value)
+      {
+        m_Indent = string.Empty;
+
+        for( int i = 0; i < m_Indent.Length; i++)
+        {
+          m_Indent += " ";
+        }
+      }
+    }
   }
 
   public bool createContent
@@ -42,10 +73,10 @@ public class Essence
     set { m_ClassName = value; }
   }
 
-  public GeneratorTypes type
+  public GeneratorTypes outputEditorType
   {
-    get { return m_Type; }
-    set { m_Type = value; }
+    get { return m_OutputEditorType; }
+    set { m_OutputEditorType = value; }
   }
 
   /// <summary>
@@ -53,7 +84,7 @@ public class Essence
   /// </summary>
   public FieldInfo[] GetSerializedFields()
   {
-    return this.m_SerializedFields;
+    return this.m_SerializedFields.ToArray();
   }
 
   /// <summary>
@@ -61,7 +92,7 @@ public class Essence
   /// </summary>
   private void PopulateSerializedFields()
   {
-    throw new System.NotImplementedException();
+    m_SerializedFields = TemplateUtility.GetSerializedFieldsFromType(classType);
   }
 
   /// <summary>
@@ -69,16 +100,14 @@ public class Essence
   /// </summary>
   public void Foreach(Action<FieldInfo> action)
   {
+    if(m_SerializedFields == null)
+    {
+      PopulateSerializedFields();
+    }
+
     for (int i = 0; i < m_SerializedFields.Length; i++)
     {
       action.Invoke(m_SerializedFields[i]);
     }
-  }
-
-  public Essence(Type classType, GeneratorTypes type)
-  {
-    this.classType = classType;
-    this.m_SerializedFields = TemplateUtility.GetSerializedFieldsFromType(classType);
-    this.m_Type = type; 
   }
 }

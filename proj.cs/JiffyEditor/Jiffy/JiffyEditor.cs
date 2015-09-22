@@ -2,22 +2,49 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine; 
 
 namespace JiffyEditor
 {
-  public class JiffyEditor
+  public class JiffyEditor : EditorWindow
   {
-    [MenuItem("Tools/Jiffy Editor/Create Editor...")]
-    public static void CreateTypeFromMenu()
+    [MenuItem("Tools/Jiffy Editor/Create Editor")]
+    public static void MenuCreateEditor()
     {
       MonoScript script = Selection.activeObject as MonoScript;
-      CreateEditor(script);
+      CreateEditor(script, Essence.GeneratorTypes.SimpleEditor);
     }
 
-    public static void CreateEditor(MonoScript script)
+    [MenuItem("Tools/Jiffy Editor/Create Property Drawer")]
+    public static void MenuCreatePropertyDrawer()
+    {
+      MonoScript script = Selection.activeObject as MonoScript;
+      CreateEditor(script, Essence.GeneratorTypes.PropertyDrawer);
+    }
+
+    [MenuItem("CONTEXT/MonoScript/Create Editor..")]
+    public static void ContextCreateEditor(MenuCommand cmd)
+    {
+      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.SimpleEditor);
+    }
+
+    [MenuItem("CONTEXT/MonoScript/Create Property Drawer..")]
+    public static void ContextCreatePropertyDrawer(MenuCommand cmd)
+    {
+      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.PropertyDrawer);
+    }
+
+    [MenuItem("Tools/Jiffy Editor/Class Creator...")]
+    public static void GetWindow()
+    {
+      EditorWindow.GetWindow<JiffyEditor>(); 
+    }
+
+    public Essence essence;
+    public SerializedObject m_EssenceObject;
+
+    public static void CreateEditor(MonoScript script, Essence.GeneratorTypes editorType)
     {
       if(script != null)
       {
@@ -40,7 +67,9 @@ namespace JiffyEditor
             string savePath =  AssetDatabase.GetAssetPath(script).Replace(".cs","Editor.cs");
             string assetName = Path.GetFileNameWithoutExtension(savePath);
 
-            Essence essence = new Essence(type, Essence.GeneratorTypes.SimpleEditor);
+            Essence essence = ScriptableObject.CreateInstance<Essence>();
+            essence.classType = type;
+            essence.outputEditorType = editorType;
             essence.className = assetName;
 
             var processor = new JiffyGeneratorPreprocessor(essence);
@@ -63,10 +92,20 @@ namespace JiffyEditor
       }
     }
 
-    [MenuItem("CONTEXT/MonoScript/Create Editor..")]
-    public static void MenuCreate(MenuCommand cmd)
+    public void OnEnable()
     {
-      CreateEditor(cmd.context as MonoScript);
+      essence = ScriptableObject.CreateInstance<Essence>();
+      m_EssenceObject = new SerializedObject(essence); 
+    }
+
+    public void OnDisable()
+    {
+      essence = null;
+      m_EssenceObject.Dispose();
+    }
+
+    public void OnGUI()
+    {
     }
   }
 }

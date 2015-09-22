@@ -68,11 +68,13 @@ public class TemplateUtility
   {
     List<FieldInfo> serializableFields = new List<FieldInfo>();
 
-    foreach (FieldInfo field in type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
+    FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+    for (int i = 0; i < fields.Length; i++)
     {
-      if (IsFieldSerializeable(field))
+      if (IsFieldSerializeable(fields[i]))
       {
-        serializableFields.Add(field);
+        serializableFields.Add(fields[i]);
       }
     }
 
@@ -89,7 +91,7 @@ public class TemplateUtility
     }
 
     //It has to be public or have the [SerializeField] attribute. 
-    if (field.IsPublic || TypeHasAttribute<SerializeField>(field.FieldType))
+    if (field.IsPublic || FieldHasAttribute<SerializeField>(field))
     {
       //We are serializeble. 
       if (IsBaseType(field.FieldType) || IsUnityType(field.FieldType))
@@ -99,7 +101,7 @@ public class TemplateUtility
       }
 
       //It's not a normal type so lets see if it's value is Serializable
-      if (TypeHasAttribute<SerializableAttribute>(field.FieldType))
+      if (FieldHasAttribute<SerializableAttribute>(field))
       {
         return true;
       }
@@ -138,8 +140,8 @@ public class TemplateUtility
     return false;
   }
 
-  public static bool TypeHasAttribute<T>(Type type)
+  public static bool FieldHasAttribute<T>(FieldInfo field)
   {
-    return type.GetCustomAttributes(typeof(T), false).Length != 0;
+    return field.GetCustomAttributes(typeof(SerializeField), true).Length > 0;
   }
 }
