@@ -53,6 +53,11 @@ public class TemplateUtility
       return "double";
     }
 
+    if(type == typeof(bool))
+    {
+      return "bool";
+    }
+
     if (type == typeof(string))
     {
       return "string";

@@ -9,6 +9,7 @@ namespace JiffyEditor
 {
   public class JiffyEditor : EditorWindow
   {
+    #region -= MENU ITEMS =-
     [MenuItem("Tools/Jiffy Editor/Create Editor")]
     public static void MenuCreateEditor()
     {
@@ -40,9 +41,12 @@ namespace JiffyEditor
     {
       EditorWindow.GetWindow<JiffyEditor>(); 
     }
+    #endregion 
 
-    public Essence essence;
-    public SerializedObject m_EssenceObject;
+    [SerializeField]
+    private Essence m_Essence;
+    [SerializeField]
+    private EssenceEditor m_Editor; 
 
     public static void CreateEditor(MonoScript script, Essence.GeneratorTypes editorType)
     {
@@ -94,18 +98,14 @@ namespace JiffyEditor
 
     public void OnEnable()
     {
-      essence = ScriptableObject.CreateInstance<Essence>();
-      m_EssenceObject = new SerializedObject(essence); 
-    }
-
-    public void OnDisable()
-    {
-      essence = null;
-      m_EssenceObject.Dispose();
+      m_Essence = ScriptableObject.CreateInstance<Essence>();
+      m_Editor = (EssenceEditor)EssenceEditor.CreateEditor(m_Essence);
+      m_Editor.OnEnable();
     }
 
     public void OnGUI()
     {
+      m_Editor.OnInspectorGUI();
     }
   }
 }
