@@ -5,10 +5,6 @@ using UnityEngine;
 public class EssenceEditor : Editor
 {
   /// <summary>
-  /// Type: Monoscript
-  /// <summary>
-  protected SerializedProperty m_Script;
-  /// <summary>
   /// Type: string
   /// </summary>
   protected SerializedProperty m_ClassName;
@@ -27,7 +23,6 @@ public class EssenceEditor : Editor
   /// </summary>
   public virtual void OnEnable()
   {
-    m_Script = serializedObject.FindProperty("m_Script");
     m_ClassName = serializedObject.FindProperty("m_ClassName");
     m_Indent = serializedObject.FindProperty("m_Indent");
     m_CreateContent = serializedObject.FindProperty("m_CreateContent");
@@ -41,7 +36,6 @@ public class EssenceEditor : Editor
   {
     EditorGUI.BeginChangeCheck();
     {
-      EditorGUILayout.PropertyField(m_Script);
       EditorGUILayout.PropertyField(m_ClassName);
       EditorGUILayout.PropertyField(m_Indent);
       EditorGUILayout.PropertyField(m_CreateContent);
