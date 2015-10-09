@@ -9,37 +9,6 @@ namespace JiffyEditor
 {
   public class JiffyEditor : EditorWindow
   {
-    [MenuItem("Tools/Jiffy Editor/Create Editor")]
-    public static void MenuCreateEditor()
-    {
-      MonoScript script = Selection.activeObject as MonoScript;
-      CreateEditor(script, Essence.GeneratorTypes.SimpleEditor);
-    }
-
-    [MenuItem("Tools/Jiffy Editor/Create Property Drawer")]
-    public static void MenuCreatePropertyDrawer()
-    {
-      MonoScript script = Selection.activeObject as MonoScript;
-      CreateEditor(script, Essence.GeneratorTypes.PropertyDrawer);
-    }
-
-    [MenuItem("CONTEXT/MonoScript/Create Editor..")]
-    public static void ContextCreateEditor(MenuCommand cmd)
-    {
-      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.SimpleEditor);
-    }
-
-    [MenuItem("CONTEXT/MonoScript/Create Property Drawer..")]
-    public static void ContextCreatePropertyDrawer(MenuCommand cmd)
-    {
-      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.PropertyDrawer);
-    }
-
-    [MenuItem("Tools/Jiffy Editor/Class Creator...")]
-    public static void GetWindow()
-    {
-      EditorWindow.GetWindow<JiffyEditor>(); 
-    }
 
     public Essence essence;
     public SerializedObject m_EssenceObject;

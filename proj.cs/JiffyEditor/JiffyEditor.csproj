@@ -55,6 +55,7 @@
     <Compile Include="Jiffy\JiffyEditor.cs" />
     <None Include="Jiffy\Templates\Generators\SimpleEditor.t4" />
     <None Include="Jiffy\Templates\Generators\SimplePropertyDrawer.t4" />
+    <Compile Include="Jiffy\MenuItems.cs" />
     <Compile Include="Jiffy\Templates\Essence.cs" />
     <Compile Include="Jiffy\Templates\JiffyGeneratorConstructor.cs" />
     <Compile Include="Jiffy\Templates\JiffyGeneratorPreprocessor.cs">
@@ -63,6 +64,7 @@
       <DependentUpon>JiffyGeneratorPreprocessor.tt</DependentUpon>
     </Compile>
     <Compile Include="Jiffy\Templates\TemplateUtility.cs" />
+    <Compile Include="Jiffy\TypeSearchWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Jiffy\Templates\JiffyGeneratorPreprocessor.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
