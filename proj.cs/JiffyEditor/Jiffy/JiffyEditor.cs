@@ -9,44 +9,9 @@ namespace JiffyEditor
 {
   public class JiffyEditor : EditorWindow
   {
-    #region -= MENU ITEMS =-
-    [MenuItem("Tools/Jiffy Editor/Create Editor")]
-    public static void MenuCreateEditor()
-    {
-      MonoScript script = Selection.activeObject as MonoScript;
-      CreateEditor(script, Essence.GeneratorTypes.SimpleEditor);
-    }
 
-    [MenuItem("Tools/Jiffy Editor/Create Property Drawer")]
-    public static void MenuCreatePropertyDrawer()
-    {
-      MonoScript script = Selection.activeObject as MonoScript;
-      CreateEditor(script, Essence.GeneratorTypes.PropertyDrawer);
-    }
-
-    [MenuItem("CONTEXT/MonoScript/Create Editor..")]
-    public static void ContextCreateEditor(MenuCommand cmd)
-    {
-      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.SimpleEditor);
-    }
-
-    [MenuItem("CONTEXT/MonoScript/Create Property Drawer..")]
-    public static void ContextCreatePropertyDrawer(MenuCommand cmd)
-    {
-      CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.PropertyDrawer);
-    }
-
-    [MenuItem("Tools/Jiffy Editor/Class Creator...")]
-    public static void GetWindow()
-    {
-      EditorWindow.GetWindow<JiffyEditor>(); 
-    }
-    #endregion 
-
-    [SerializeField]
-    private Essence m_Essence;
-    [SerializeField]
-    private EssenceEditor m_Editor; 
+    public Essence essence;
+    public SerializedObject m_EssenceObject;
 
     public static void CreateEditor(MonoScript script, Essence.GeneratorTypes editorType)
     {
@@ -98,14 +63,18 @@ namespace JiffyEditor
 
     public void OnEnable()
     {
-      m_Essence = ScriptableObject.CreateInstance<Essence>();
-      m_Editor = (EssenceEditor)EssenceEditor.CreateEditor(m_Essence);
-      m_Editor.OnEnable();
+      essence = ScriptableObject.CreateInstance<Essence>();
+      m_EssenceObject = new SerializedObject(essence); 
+    }
+
+    public void OnDisable()
+    {
+      essence = null;
+      m_EssenceObject.Dispose();
     }
 
     public void OnGUI()
     {
-      m_Editor.OnInspectorGUI();
     }
   }
 }
