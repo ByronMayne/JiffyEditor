@@ -6,10 +6,22 @@ namespace Jiffy.TypeSerach
   {
     public AssemblyToggle(bool useAssembly, string assemblyName)
     {
-      this.useAssembly = useAssembly;
+      this.m_UseAssembly = new BoolEditorPref("Jiffy:UseAssembly:" + assemblyName, useAssembly);
       this.assemblyName = assemblyName;
     }
-    public bool useAssembly;
+    private BoolEditorPref m_UseAssembly;
     public string assemblyName;
+
+    public bool useAssembly
+    {
+      get
+      {
+        return m_UseAssembly.value;
+      }
+      set
+      {
+        m_UseAssembly.value = value; 
+      }
+    }
   }
 }

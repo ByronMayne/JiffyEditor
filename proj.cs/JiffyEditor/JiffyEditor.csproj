@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Jiffy\Editor\EssenceEditor.cs" />
+    <Compile Include="Jiffy\Helpers\EditorPrefValues.cs" />
     <Compile Include="Jiffy\JiffyEditor.cs" />
     <None Include="Jiffy\Templates\Generators\SimpleEditor.t4" />
     <None Include="Jiffy\Templates\Generators\SimplePropertyDrawer.t4" />
@@ -70,7 +71,6 @@
     <Compile Include="Jiffy\Type Search Window\EditorGUIEx.cs" />
     <Compile Include="Jiffy\Type Search Window\Styles.cs" />
     <Compile Include="Jiffy\Type Search Window\TypeSearchWindow.cs" />
-    <Compile Include="Jiffy\Type Search Window\AssembliesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Jiffy\Templates\JiffyGeneratorPreprocessor.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
@@ -89,30 +89,23 @@
     <TransformOnBuild>true</TransformOnBuild>
   </PropertyGroup>
   -->
-
   <Target Name="AfterBuild">
     <Message Text="--------=||  After Build  ||=--------" Importance="high" />
     <!-- Create our PDBs-->
     <CallTarget Targets="GenerateMonoSymbols" Condition=" Exists('$(TargetDir)$(TargetName).pdb') " />
-    
     <!-- DLL -->
     <Message Text="Copying Dll -  From: $(TargetDir)$(TargetName).dll" Importance="high" />
-    <Message Text="               To: $(UnityProjectPath).dll" Importance="High" />
-    <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(UnityProjectPath).dll" />
-    
-    
+    <Message Text="               To: $(UnityProjectPath)$(TargetName).dll" Importance="High" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(UnityProjectPath)$(TargetName).dll" />
     <!-- PDB -->
     <Message Text="Copying pdb: - From: $(TargetDir)$(TargetName).pdb" Importance="high" />
-    <Message Text="               To: $(UnityProjectPath).pdb" Importance="High" />
-    <Copy Condition="Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(UnityProjectPath).pdb"/>
-    
+    <Message Text="               To: $(UnityProjectPath)$(TargetName).pdb" Importance="High" />
+    <Copy Condition="Exists('$(TargetDir)$(TargetName).pdb')" SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFiles="$(UnityProjectPath)$(TargetName).pdb" />
     <!-- MDB -->
     <Message Text="Copying mdb: - From: $(TargetDir)$(TargetName).dll.mdb" Importance="high" />
-    <Message Text="               To: $(UnityProjectPath).dll.mdb" Importance="High" />
-    <Copy Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(UnityProjectPath).dll.mdb" />
-    
-  
-  <Message Text="--------=|| Complete ||=--------" Importance="high" />
+    <Message Text="               To: $(UnityProjectPath)$(TargetName).dll.mdb" Importance="High" />
+    <Copy Condition="Exists('$(TargetDir)$(TargetName).dll.mdb')" SourceFiles="$(TargetDir)$(TargetName).dll.mdb" DestinationFiles="$(UnityProjectPath)$(TargetName).dll.mdb" />
+    <Message Text="--------=|| Complete ||=--------" Importance="high" />
   </Target>
   <Target Name="GenerateMonoSymbols">
     <Message Text="Generating Mono Symbols..." Importance="High" />

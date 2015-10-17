@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine; 
+using Object = global::UnityEngine.Object; 
 
 namespace JiffyEditor
 {
@@ -20,6 +21,9 @@ namespace JiffyEditor
       //Custom Editor only work for MonoBehaviours and ScriptableObjects. We make sure they are creating one for the correct type here.
       if (typeof(MonoBehaviour).IsAssignableFrom(type) || typeof(ScriptableObject).IsAssignableFrom(type))
       {
+        return true; 
+
+        /*
         //They have the correct type. Is there a script in the Unity project that has the same name as the class (Requried to work)
         var guids = AssetDatabase.FindAssets("t:Script " + type.Name);
 
@@ -39,6 +43,7 @@ namespace JiffyEditor
             //We found a valid class so we break;
             return true;
           }
+ 
         }
 
         //If they don't have a valid class we quit here
@@ -46,6 +51,7 @@ namespace JiffyEditor
         {
           Debug.LogError("The type '" + type.Name + "' does not have a matching class in the Unity project. This is required for Unity to create your Editor. Please rename the class containing the class definition for " + type.Name + " to " + type.Name + ".cs");
         }
+         *         * */
       }
       else
       {
@@ -120,15 +126,15 @@ namespace JiffyEditor
 
       if (type != null)
       {
-        string savePath = EditorUtility.SaveFilePanelInProject("Save Location", type.Name + "Editor", "cs", "The location you want to save your Editor");
+        string assetPath = EditorUtility.SaveFilePanelInProject("Save Location", type.Name + "Editor", "cs", "The location you want to save your Editor");
 
-        if(string.IsNullOrEmpty(savePath))
+        if (string.IsNullOrEmpty(assetPath))
         {
           //They cancelled selecting a path.
           return;
         }
 
-        string assetName = Path.GetFileNameWithoutExtension(savePath);
+        string assetName = Path.GetFileNameWithoutExtension(assetPath);
 
         Essence essence = ScriptableObject.CreateInstance<Essence>();
         essence.classType = type;
@@ -139,7 +145,18 @@ namespace JiffyEditor
 
         string @class = processor.TransformText();
 
-        File.WriteAllText(savePath, @class);
+        File.WriteAllText(assetPath, @class);
+
+        AssetDatabase.ImportAsset(assetPath);
+
+        Debug.LogFormat("Jiffy | {0}.cs was created for {1}.cs. The scirpt is located {2}", type.Name, assetName, assetPath);
+
+        Object script = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
+
+        if(script != null)
+        {
+          EditorGUIUtility.PingObject(script);
+        }
 
         AssetDatabase.Refresh();
       }
