@@ -31,7 +31,7 @@ namespace JiffyEditor.Jiffy.Templates
             
             #line 7 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\JiffyGeneratorPreprocessor.tt"
  
-   if(essence.outputEditorType == Essence.GeneratorTypes.SimpleEditor)
+   if(essence.outputEditorType == Essence.GeneratorTypes.CustomEditor)
    {
      GenerateSimpleEditor(essence);
    }

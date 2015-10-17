@@ -64,7 +64,11 @@
       <DependentUpon>JiffyGeneratorPreprocessor.tt</DependentUpon>
     </Compile>
     <Compile Include="Jiffy\Templates\TemplateUtility.cs" />
-    <Compile Include="Jiffy\TypeSearchWindow.cs" />
+    <Compile Include="Jiffy\Type Search Window\AssemblyToggle.cs" />
+    <Compile Include="Jiffy\Type Search Window\EditorGUIEx.cs" />
+    <Compile Include="Jiffy\Type Search Window\Styles.cs" />
+    <Compile Include="Jiffy\Type Search Window\TypeSearchWindow.cs" />
+    <Compile Include="Jiffy\Type Search Window\AssembliesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Jiffy\Templates\JiffyGeneratorPreprocessor.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

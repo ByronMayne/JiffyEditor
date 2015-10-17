@@ -4,64 +4,35 @@ using System.Collections.Generic;
 using System;
 using System.Reflection;
 
-namespace JiffyEditor
+namespace Jiffy.TypeSerach
 {
-  public class TypeSearchWindow : EditorWindow
+  public partial class TypeSearchWindow : EditorWindow
   {
-    private class AssemblyToggle
-    {
-      public AssemblyToggle(bool useAssembly, string assemblyName)
-      {
-        this.useAssembly = useAssembly;
-        this.assemblyName = assemblyName;
-      }
-      public bool useAssembly;
-      public string assemblyName;
-    }
-
-    private class Styles
-    {
-      public Styles()
-      {
-        selectedLabel.alignment = TextAnchor.MiddleLeft;
-        selectedLabel.stretchWidth = true;
-        selectedLabel.margin = new RectOffset(0, 0, 0, 0);
-        selectedLabel.padding = new RectOffset(0, 0, 0, 0);
-        this.searchBg.padding = new RectOffset(0, 5, 5, 0);
-        this.searchBg.fixedHeight = 30f;
-        this.bottomBarBg.alignment = TextAnchor.MiddleLeft;
-        this.bottomBarBg.fontSize = EditorStyles.label.fontSize;
-        this.bottomBarBg.padding = new RectOffset(5, 5, 0, 0);
-      }
-
-      public GUIStyle background = "ObjectPickerBackground";
-      public GUIStyle toolbarSearchField = "SearchTextField";
-      public GUIStyle previewTextureBackground = "ObjectPickerPreviewBackground";
-      public GUIStyle searchEmpty = "SearchCancelButtonEmpty";
-      public GUIStyle searchFull = "SearchCancelButton";
-
-      public GUIStyle searchBg = new GUIStyle("ProjectBrowserTopBarBg");
-      public GUIStyle bottomBarBg = new GUIStyle("ProjectBrowserBottomBarBg");
-
-      public GUIStyle normalLabel = new GUIStyle(EditorStyles.label);
-      public GUIStyle selectedLabel = new GUIStyle((GUIStyle)"TL SelectionButton PreDropGlow");
-    }
+    public const string ITEM_SELECTED_COMMAND = "TypeSearchWindow:Select";
 
     private GUIContent m_AssemblyTitle = new GUIContent("Used Assemblies");
-    private List<AssemblyToggle> AssemblyToggles = new List<AssemblyToggle>()
-    {
-      new AssemblyToggle(true, "Assembly-CSharp"),
-      new AssemblyToggle(true, "Assembly-CSharp-Editor"),
-      new AssemblyToggle(true, "Assembly-CSharp-firstpass"),
-    };
 
     private string m_SearchFilter = string.Empty;
     private List<Type> m_Types = new List<Type>();
     private Vector2 m_AssemblyScrollPos = new Vector2();
     private Vector2 m_TypesScrollPos = new Vector2();
     private int m_SelectedItem = -1;
-
     private Styles m_Styles;
+    private TypeSelectedCallback m_Callback;
+
+    public TypeSelectedCallback callback
+    {
+      get { return m_Callback; }
+      set { m_Callback = value; }
+    }
+
+    private EditorWindow m_Owner;
+
+    public EditorWindow owner
+    {
+      get { return m_Owner; }
+      set { m_Owner = value; }
+    }
 
     protected void OnEnable()
     {
@@ -153,6 +124,21 @@ namespace JiffyEditor
 
               if (Event.current.type == EventType.MouseDown && rect.Contains(Event.current.mousePosition))
               {
+                if(Event.current.clickCount == 2 && m_SelectedItem == i)
+                {
+                  if(owner != null)
+                  {
+                    Event selected = EditorGUIUtility.CommandEvent(ITEM_SELECTED_COMMAND);
+                    owner.SendEvent(selected); 
+                  }
+
+                  if(callback != null)
+                  {
+                    callback(m_Types[i]);
+                    this.Close();
+                  }
+                }
+
                 m_SelectedItem = i;
                 this.Repaint();
               }

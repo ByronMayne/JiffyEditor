@@ -15,7 +15,7 @@ public class Essence : ScriptableObject
 {
   public enum GeneratorTypes
   {
-    SimpleEditor,
+    CustomEditor,
     PropertyDrawer
   }
 
