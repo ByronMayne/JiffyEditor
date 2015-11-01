@@ -248,3 +248,11 @@ proj.unity/proj.unity.userprefs
 proj.unity/proj.unity.sln
 proj.unity/Assembly-CSharp.csproj
 proj.unity/Assembly-CSharp-vs.csproj
+proj.unity/UnityVS.proj.unity.CSharp.Editor.csproj
+proj.unity/UnityVS.proj.unity.CSharp.Plugins.csproj
+proj.unity/UnityVS.proj.unity.CSharp.csproj
+proj.unity/UnityVS.proj.unity.sln
+proj.unity/Assembly-CSharp-Editor-vs.csproj
+proj.unity/Assembly-CSharp-Editor.csproj
+proj.unity/Assembly-CSharp-firstpass-vs.csproj
+proj.unity/Assembly-CSharp-firstpass.csproj
