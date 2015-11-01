@@ -11,21 +11,12 @@ namespace Jiffy
   public static class EditorGUIUtilityEx
   {
     /// <summary>
-    /// Shows the Type Serach Window and uses the imGUI event system to send the result back.
-    /// </summary>
-    public static void ShowTypeSerachWindow(EditorWindow caller)
-    {
-      var typeWindow = EditorWindow.GetWindow<TypeSearchWindow>(true);
-      typeWindow.owner = caller;
-    }
-
-    /// <summary>
     /// Shows the Type Search Window and uses a callback to send the result. 
     /// </summary>
-    public static void ShowTypeSerachWindow(Action<Type> onTypeSelected)
+    public static void ShowTypeSerachWindow(Action<Type> onTypeSelected, GeneratorTypes type)
     {
       var typeWindow = EditorWindow.GetWindow<TypeSearchWindow>(true);
-      typeWindow.AddCallback(onTypeSelected);
+      typeWindow.Init(onTypeSelected, type);
     }
   }
 }

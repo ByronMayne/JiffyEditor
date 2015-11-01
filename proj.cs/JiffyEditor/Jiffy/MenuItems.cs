@@ -1,9 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Linq;
-using Jiffy;
 
-namespace JiffyEditor
+namespace Jiffy
 {
   public class MenuItems
   {
@@ -16,11 +15,11 @@ namespace JiffyEditor
 
       if (script != null)
       {
-        JiffyEditor.CreateEditor(script, Essence.GeneratorTypes.CustomEditor);
+        JiffyEditor.CreateEditor(script, GeneratorTypes.CustomEditor);
       }
       else
       {
-        EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForEditorSelected);
+        EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForEditorSelected, GeneratorTypes.CustomEditor);
       }
     }
 
@@ -32,11 +31,11 @@ namespace JiffyEditor
 
       if (script != null)
       {
-        JiffyEditor.CreateEditor(script, Essence.GeneratorTypes.PropertyDrawer);
+        JiffyEditor.CreateEditor(script, GeneratorTypes.PropertyDrawer);
       }
       else
       {
-        EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForProperyDrawerSelected);
+        EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForProperyDrawerSelected, GeneratorTypes.PropertyDrawer);
       }
     }
     #endregion
@@ -45,13 +44,13 @@ namespace JiffyEditor
     [MenuItem("Tools/Jiffy/Create Custom Editor..")]
     public static void ContextCreateCustomEditor(MenuCommand cmd)
     {
-      EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForEditorSelected);
+      EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForEditorSelected, GeneratorTypes.CustomEditor);
     }
 
     [MenuItem("Tools/Jiffy/Create Property Drawer..")]
     public static void ContextCreatePropertyDrawer(MenuCommand cmd)
     {
-      EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForProperyDrawerSelected);
+      EditorGUIUtilityEx.ShowTypeSerachWindow(OnTypeForProperyDrawerSelected, GeneratorTypes.PropertyDrawer);
     }
     #endregion
 
@@ -59,7 +58,7 @@ namespace JiffyEditor
     [MenuItem("CONTEXT/MonoScript/Create Editor..")]
     public static void ContextCreateEditor(MenuCommand cmd)
     {
-      JiffyEditor.CreateEditor(cmd.context as MonoScript, Essence.GeneratorTypes.CustomEditor);
+      JiffyEditor.CreateEditor(cmd.context as MonoScript, GeneratorTypes.CustomEditor);
     }
     #endregion 
 
@@ -69,7 +68,7 @@ namespace JiffyEditor
     /// </summary>
     private static void OnTypeForEditorSelected(System.Type type)
     {
-      JiffyEditor.CreateEditor(type, Essence.GeneratorTypes.CustomEditor);
+      JiffyEditor.CreateEditor(type, GeneratorTypes.CustomEditor);
     }
 
     /// <summary>
@@ -77,7 +76,7 @@ namespace JiffyEditor
     /// </summary>
     private static void OnTypeForProperyDrawerSelected(System.Type type)
     {
-      JiffyEditor.CreateEditor(type, Essence.GeneratorTypes.PropertyDrawer);
+      JiffyEditor.CreateEditor(type, GeneratorTypes.PropertyDrawer);
     }
     #endregion 
   }

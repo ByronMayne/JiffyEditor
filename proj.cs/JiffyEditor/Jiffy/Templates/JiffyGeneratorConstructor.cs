@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Jiffy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace JiffyEditor.Jiffy.Templates
+namespace Jiffy.Templates
 {
   public partial class JiffyGeneratorPreprocessor : JiffyGeneratorPreprocessorBase
   {

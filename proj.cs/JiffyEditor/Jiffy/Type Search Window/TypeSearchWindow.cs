@@ -26,13 +26,16 @@ namespace Jiffy.TypeSerach
     [SerializeField]
     private Object m_Target;
 
-    private IntEditorPref    m_SelectedItem = new IntEditorPref("Jiffy:SelectedItem", 0);
+    private IntEditorPref m_SelectedItem = new IntEditorPref("Jiffy:SelectedItem", 0);
     private StringEditorPref m_SearchFilter = new StringEditorPref("Jiffy:SerachFilter", string.Empty);
     private StringEditorPref m_MethodName = new StringEditorPref("Jiffy:MethodName", string.Empty);
     private StringEditorPref m_MethodAssemblyQualifiedName = new StringEditorPref("Jiffy:MethodAssemblyQualifiedName", string.Empty);
-    private BoolEditorPref   m_ShowUserAssemblies = new BoolEditorPref("Jiffy:ShowUserAssemblies", true);
-    private BoolEditorPref   m_ShowUnityAssemblies = new BoolEditorPref("Jiffy:ShowUnityAssemblies", true);
-    private BoolEditorPref   m_CreateAnother = new BoolEditorPref("Jiffy:CreateAnother", true);
+    private BoolEditorPref m_ShowUserAssemblies = new BoolEditorPref("Jiffy:ShowUserAssemblies", true);
+    private BoolEditorPref m_ShowUnityAssemblies = new BoolEditorPref("Jiffy:ShowUnityAssemblies", true);
+    private BoolEditorPref m_CreateAnother = new BoolEditorPref("Jiffy:CreateAnother", true);
+
+    private GeneratorTypes m_GeneratorType;
+    private string[] m_GeneratorNames;
 
     private Styles m_Styles;
     private List<Type> m_Types;
@@ -58,16 +61,38 @@ namespace Jiffy.TypeSerach
       }
       HandleKeyboard();
       DrawSearchField();
+      DrawTypeSelector();
+      GUILayout.Space(4);
       DrawTypeTree();
       DrawAssemblies();
       DrawButton();
     }
 
-    public void AddCallback(Action<Type> callback)
+    private void DrawTypeSelector()
+    {
+      if (m_GeneratorNames != null)
+      {
+        int id = (int)m_GeneratorType;
+        EditorGUI.BeginChangeCheck();
+        {
+          id = GUILayout.Toolbar(id, m_GeneratorNames, EditorStyles.toolbarButton);
+        }
+        if (EditorGUI.EndChangeCheck())
+        {
+          m_GeneratorType = (GeneratorTypes)id;
+          PopulateTypes();
+        }
+
+      }
+    }
+
+    public void Init(Action<Type> callback, GeneratorTypes type)
     {
       m_Target = callback.Target as Object;
       m_MethodName.value = callback.Method.Name;
       m_MethodAssemblyQualifiedName.value = callback.Method.DeclaringType.AssemblyQualifiedName;
+      m_GeneratorType = type;
+      PopulateTypes();
     }
 
     private void DrawButton()
@@ -112,7 +137,14 @@ namespace Jiffy.TypeSerach
       m_ShowUnityAssemblies.Load();
       m_CreateAnother.Load();
 
-      titleContent = new GUIContent("Select Type");
+      m_GeneratorNames = System.Enum.GetNames(typeof(GeneratorTypes));
+
+      for (int i = 0; i < m_GeneratorNames.Length; i++)
+      {
+        m_GeneratorNames[i] = ObjectNames.NicifyVariableName(m_GeneratorNames[i]);
+      }
+
+
       m_AssemblyTitle = new GUIContent("Used Assemblies");
       m_Types = new List<Type>();
       GetAssemblies();
@@ -226,7 +258,7 @@ namespace Jiffy.TypeSerach
         {
           for (int i = 0; i < m_Types.Count; i++)
           {
-            if (string.IsNullOrEmpty(m_SearchFilter.value) || m_Types[i].Name.Contains(m_SearchFilter.value))
+            if (string.IsNullOrEmpty(m_SearchFilter.value) || m_Types[i].Name.ToLower().Contains(m_SearchFilter.value.ToLower()))
             {
               var content = EditorGUIUtility.IconContent("cs Script Icon");
               content.text = m_Types[i].Name;
@@ -375,6 +407,8 @@ namespace Jiffy.TypeSerach
     /// </summary>
     private void PopulateTypes()
     {
+      titleContent = new GUIContent("Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString()));
+
       m_Types = new List<Type>();
       foreach (AssemblyToggle toggle in m_UserAssemblies)
       {
@@ -421,6 +455,25 @@ namespace Jiffy.TypeSerach
           }
         }
       }
+
+      for (int i = m_Types.Count - 1; i >= 0; i--)
+      {
+        if (m_GeneratorType == GeneratorTypes.CustomEditor)
+        {
+          if (!JiffyEditor.IsValidForCustomEditor(m_Types[i]))
+          {
+            m_Types.RemoveAt(i);
+          }
+        }
+        else if (m_GeneratorType == GeneratorTypes.PropertyDrawer)
+        {
+          if (!JiffyEditor.IsValidForPropertyDrawer(m_Types[i]))
+          {
+            m_Types.RemoveAt(i);
+          }
+        }
+      }
+
       if (m_SelectedItem.value < 0 || m_SelectedItem.value > m_Types.Count)
       {
         m_SelectedItem.value = 0;

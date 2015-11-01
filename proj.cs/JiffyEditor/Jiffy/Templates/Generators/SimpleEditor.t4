@@ -1,4 +1,4 @@
-﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll"#>
 <#@ import namespace="System.Reflection" #>
 <#+
     public void GenerateSimpleEditor(Essence essence)
@@ -6,7 +6,7 @@
       WriteLine("using UnityEditor;");
       WriteLine("using UnityEngine;");
       WriteLine(string.Empty);
-      WriteLine("[CustomEditor(typeof( " + essence.classType.Name + " ))]");
+      WriteLine("[CustomEditor(typeof( " + essence.classType.FullName + " ))]");
       WriteLine("public class " + essence.className + " : Editor");
       WriteLine("{"); 
 
@@ -31,7 +31,7 @@
       WriteLine("}");
     }
 
-    public void CreateContent(Essence essence)
+    public void CreateContent(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
 
@@ -45,7 +45,7 @@ public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
       PopIndent();
     }
 
-    public void PrintVariables(Essence essence)
+    public void PrintVariables(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
 
@@ -65,7 +65,7 @@ protected SerializedProperty <#= info.Name #>;
       PopIndent();
     }
 
-    public void PrintOnEnableFunction(Essence essence)
+    public void PrintOnEnableFunction(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       WriteLine("/// <summary>");
@@ -87,7 +87,7 @@ protected SerializedProperty <#= info.Name #>;
       PopIndent();
     }
 
-    public void PrintGUIFunction(Essence essence)
+    public void PrintGUIFunction(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       WriteLine("/// <summary>");

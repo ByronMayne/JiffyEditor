@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Jiffy;
+using UnityEditor;
 using UnityEngine;
 
 [CustomEditor(typeof(Essence))]

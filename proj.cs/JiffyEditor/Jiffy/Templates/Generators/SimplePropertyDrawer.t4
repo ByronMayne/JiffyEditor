@@ -1,11 +1,12 @@
 ﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+<#@ import namespace="Jiffy" #>
 <#+
-    public void GeneratePropertyDrawer(Essence essence)
+    public void GeneratePropertyDrawer(Jiffy.Essence essence)
     {
       WriteLine("using UnityEditor;");
       WriteLine("using UnityEngine;");
       WriteLine(string.Empty);
-      WriteLine("[CustomPropertyDrawer(typeof( " + essence.classType.Name + " ))]");
+      WriteLine("[CustomPropertyDrawer(typeof( " + essence.classType.FullName + " ))]");
       WriteLine("public class " + essence.className + " : PropertyDrawer");
       WriteLine("{"); 
 
@@ -34,7 +35,7 @@
       WriteLine("}");
     }
 
-    public void PDContent(Essence essence)
+    public void PDContent(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
 
@@ -47,7 +48,7 @@ public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
       PopIndent();
     }
 
-    public void PDPopulateSP(Essence essence)
+    public void PDPopulateSP(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       WriteLine("/// <summary>");
@@ -69,7 +70,7 @@ public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
       PopIndent(); 
     }
 
-    public void PDVariable(Essence essence)
+    public void PDVariable(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       essence.Foreach( (FieldInfo info) => 
@@ -84,7 +85,7 @@ protected SerializedProperty <#= info.Name #>;
       PopIndent();
     }
 
-    public void PDPropertyHeight(Essence essence)
+    public void PDPropertyHeight(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       WriteLine("/// <summary>");
@@ -110,7 +111,7 @@ height += EditorGUI.GetPropertyHeight(<#=info.Name#>);
       PopIndent();
     }
 
-    public void PDOnGUI(Essence essence)
+    public void PDOnGUI(Jiffy.Essence essence)
     {
       PushIndent(essence.indent);
       WriteLine("/// <summary>");

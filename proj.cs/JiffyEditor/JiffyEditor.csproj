@@ -7,7 +7,7 @@
     <ProjectGuid>{7A6EFB2E-859D-44C4-8184-5963EE12C762}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JiffyEditor</RootNamespace>
+    <RootNamespace>Jiffy</RootNamespace>
     <AssemblyName>JiffyEditor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -75,6 +75,7 @@
     <None Include="Jiffy\Templates\JiffyGeneratorPreprocessor.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>JiffyGeneratorPreprocessor.cs</LastGenOutput>
+      <CustomToolNamespace>Jiffy.Templates</CustomToolNamespace>
     </None>
   </ItemGroup>
   <ItemGroup>
