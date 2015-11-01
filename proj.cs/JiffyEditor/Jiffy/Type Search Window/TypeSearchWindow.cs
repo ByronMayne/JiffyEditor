@@ -123,8 +123,6 @@ namespace Jiffy.TypeSerach
         }
       }
       GUILayout.EndHorizontal();
-      GUILayout.Space(5);
-
     }
 
     protected void OnEnable()
@@ -170,14 +168,14 @@ namespace Jiffy.TypeSerach
     }
 
     private bool splitIsDragging = false;
-    private float height = 40; 
+    private float height = 40;
     /// <summary>
     /// This function is used to allow the user to toggle the Assemblies 
     /// that they want to look for types in. 
     /// </summary>
     private void DrawAssemblies()
     {
-      GUILayout.Space(5);
+      GUILayout.Space(4);
 
       GUILayout.BeginHorizontal();
       {
@@ -189,26 +187,28 @@ namespace Jiffy.TypeSerach
 
       Rect dragRect = GUILayoutUtility.GetLastRect();
 
-      if(Event.current.type == EventType.MouseDown && dragRect.Contains(Event.current.mousePosition))
+      GUILayout.Space(2);
+
+      if (Event.current.type == EventType.MouseDown && dragRect.Contains(Event.current.mousePosition))
       {
-        splitIsDragging = true; 
+        splitIsDragging = true;
       }
 
-      if( Event.current.type == EventType.MouseUp )
+      if (Event.current.type == EventType.MouseUp)
       {
-        splitIsDragging = false; 
+        splitIsDragging = false;
       }
 
       if (splitIsDragging)
       {
-        height = this.position.height - Event.current.mousePosition.y - 45;
+        height = this.position.height - Event.current.mousePosition.y - 40;
         this.Repaint();
       }
-      
+
 
       EditorGUIUtility.AddCursorRect(dragRect, MouseCursor.ResizeVertical);
 
-      GUILayout.BeginVertical(GUILayout.MinHeight(150), GUILayout.Height(height));
+      GUILayout.BeginVertical((GUIStyle)"AnimationCurveEditorBackground", GUILayout.MinHeight(150), GUILayout.Height(height));
       {
         m_AssemblyScrollPos = GUILayout.BeginScrollView(m_AssemblyScrollPos);
         {
