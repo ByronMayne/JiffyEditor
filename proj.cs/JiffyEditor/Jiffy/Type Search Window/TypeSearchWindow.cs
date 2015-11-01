@@ -169,13 +169,46 @@ namespace Jiffy.TypeSerach
       GUIUtility.ExitGUI();
     }
 
+    private bool splitIsDragging = false;
+    private float height = 40; 
     /// <summary>
     /// This function is used to allow the user to toggle the Assemblies 
     /// that they want to look for types in. 
     /// </summary>
     private void DrawAssemblies()
     {
-      GUILayout.BeginVertical(GUILayout.MinHeight(150));
+      GUILayout.Space(5);
+
+      GUILayout.BeginHorizontal();
+      {
+        GUILayout.FlexibleSpace();
+        GUILayout.Label(GUIContent.none, (GUIStyle)"WindowBottomResize", GUILayout.Width(90));
+        GUILayout.FlexibleSpace();
+      }
+      GUILayout.EndHorizontal();
+
+      Rect dragRect = GUILayoutUtility.GetLastRect();
+
+      if(Event.current.type == EventType.MouseDown && dragRect.Contains(Event.current.mousePosition))
+      {
+        splitIsDragging = true; 
+      }
+
+      if( Event.current.type == EventType.MouseUp )
+      {
+        splitIsDragging = false; 
+      }
+
+      if (splitIsDragging)
+      {
+        height = this.position.height - Event.current.mousePosition.y - 45;
+        this.Repaint();
+      }
+      
+
+      EditorGUIUtility.AddCursorRect(dragRect, MouseCursor.ResizeVertical);
+
+      GUILayout.BeginVertical(GUILayout.MinHeight(150), GUILayout.Height(height));
       {
         m_AssemblyScrollPos = GUILayout.BeginScrollView(m_AssemblyScrollPos);
         {
