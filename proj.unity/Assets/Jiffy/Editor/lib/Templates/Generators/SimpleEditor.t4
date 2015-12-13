@@ -1,0 +1,137 @@
+﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll"#>
+<#@ import namespace="System.Reflection" #>
+<#+
+    public void GenerateSimpleEditor(Essence essence)
+    {
+      WriteLine("using UnityEditor;");
+      WriteLine("using UnityEngine;");
+      WriteLine(string.Empty);
+      WriteLine("[CustomEditor(typeof( " + essence.classType.FullName + " ))]");
+      WriteLine("public class " + essence.className + " : Editor");
+      WriteLine("{"); 
+
+      if(essence.createContent)
+      {
+        CreateContent(essence);
+      }
+
+      //Space
+      WriteLine(string.Empty);
+      PrintVariables(essence); 
+
+      //Space
+      WriteLine(string.Empty);
+      PrintOnEnableFunction(essence); 
+
+      //Space
+      WriteLine(string.Empty);
+      PrintGUIFunction(essence); 
+
+      PopIndent();
+      WriteLine("}");
+    }
+
+    public void CreateContent(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+
+      WriteLine("public GUIContent m_ScriptContent = new GUIContent(\"Script\")");
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
+<#+
+      }); 
+      PopIndent();
+    }
+
+    public void PrintVariables(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+
+      WriteLine("/// <summary>");
+      WriteLine("/// Type: Monoscript");
+      WriteLine("/// <summary>");
+      WriteLine("protected SerializedProperty m_Script;");
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+/// <summary>
+/// Type: <#= TemplateUtility.NiceTypeName(info.FieldType) #>
+/// </summary>
+protected SerializedProperty <#= info.Name #>;
+<#+
+      }); 
+      PopIndent();
+    }
+
+    public void PrintOnEnableFunction(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      WriteLine("/// <summary>");
+      WriteLine("/// This function is called when the object is loaded.");
+      WriteLine("/// We use it to init all our properties");
+      WriteLine("/// </summary>");
+      WriteLine("protected virtual void OnEnable()");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      WriteLine("m_Script = serializedObject.FindProperty(\"m_Script\");");
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+<#= info.Name #> = serializedObject.FindProperty("<#= info.Name #>");
+<#+
+      }); 
+      PopIndent(); 
+      WriteLine("}");
+      PopIndent();
+    }
+
+    public void PrintGUIFunction(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      WriteLine("/// <summary>");
+      WriteLine("/// Inside this function you can add your own custom GUI");
+      WriteLine("/// for the inspector of a specific object class.");
+      WriteLine("/// </summary>");
+      WriteLine("public override void OnInspectorGUI()");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      WriteLine("EditorGUI.BeginChangeCheck();");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      if(essence.createContent)
+      {
+        WriteLine("EditorGUILayout.PropertyField(m_Script, m_ScriptContent);");
+      }
+      else
+      {
+        WriteLine("EditorGUILayout.PropertyField(m_Script);");
+      }
+      essence.Foreach( (FieldInfo info) => 
+      { 
+        if(essence.createContent)
+        {
+#>
+EditorGUILayout.PropertyField(<#= info.Name #>, <#= info.Name #>Content);
+<#+
+        }
+        else
+        {
+#>
+EditorGUILayout.PropertyField(<#= info.Name #>);
+<#+
+        }
+      }); 
+      PopIndent(); 
+      WriteLine("}");
+      WriteLine("if(EditorGUI.EndChangeCheck())");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      WriteLine("serializedObject.ApplyModifiedProperties();");
+      PopIndent(); 
+      WriteLine("}");
+      PopIndent(); 
+      WriteLine("}");
+    }
+#>

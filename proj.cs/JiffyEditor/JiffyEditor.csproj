@@ -15,7 +15,8 @@
     <UnityInstallFolder>$(Registry:HKEY_CURRENT_USER\Software\Unity Technologies\Unity Editor 5.x@Location)</UnityInstallFolder>
     <ReferencePath>$(UnityInstallFolder)\Data\Managed</ReferencePath>
     <MonoMdbGenerator>$(UnityInstallFolder)\Data\MonoBleedingEdge\lib\mono\4.0\pdb2mdb.exe</MonoMdbGenerator>
-    <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <UnityProjectPath>$(SolutionDir)..\proj.unity\Assets\Jiffy\Editor\$(TargetName)</UnityProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -83,14 +84,18 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- 
-  Sadily I can't get this to work yet. I will get back to it. 
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TextTemplating\Microsoft.TextTemplating.targets"/>
-  <PropertyGroup>
-    <TransformOnBuild>true</TransformOnBuild>
-  </PropertyGroup>
-  -->
-  <Target Name="AfterBuild">
+  <Target Condition="'$(Configuration)' == 'Release'" Name="BeforeBuild">
+    <Message Text="Copying Source File" Importance="high"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll'" Files="$(UnityProjectPath)$(TargetName).dll"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).pdb'" Files="$(UnityProjectPath)$(TargetName).pdb"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll.mdb'" Files="$(UnityProjectPath)$(TargetName).dll.mdb"/>
+    <ItemGroup>
+      <SourceFiles Include="$(ProjectDir)Jiffy\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(UnityProjectPath)\lib\%(RecursiveDir)"/>
+  </Target>
+  <Target Condition="'$(Configuration)' == 'Debug'" Name="AfterBuild">
+    <RemoveDir Condition="Exists('$(UnityProjectPath)\lib')" Directories="$(UnityProjectPath)\lib" />
     <Message Text="--------=||  After Build  ||=--------" Importance="high" />
     <!-- Create our PDBs-->
     <CallTarget Targets="GenerateMonoSymbols" Condition=" Exists('$(TargetDir)$(TargetName).pdb') " />

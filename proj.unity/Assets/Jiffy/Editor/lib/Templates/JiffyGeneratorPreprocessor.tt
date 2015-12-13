@@ -1,0 +1,16 @@
+﻿<#@ template  debug="false" hostSpecific="false" language="C#"#>
+<#@ output extension=".cs" #>
+<#@ assembly name="$(SolutionDir)JiffyEditor\Assemblies\JiffyEditor.dll" #>
+<#@ assembly name="$(SolutionDir)JiffyEditor\Assemblies\UnityEngine.dll" #>
+<#@ include file="Generators\SimpleEditor.t4" #>
+<#@ include file="Generators\SimplePropertyDrawer.t4" #>
+<# 
+   if(essence.outputEditorType == GeneratorTypes.CustomEditor)
+   {
+     GenerateSimpleEditor(essence);
+   }
+   else if (essence.outputEditorType == GeneratorTypes.PropertyDrawer)
+   {
+     GeneratePropertyDrawer(essence); 
+   }
+#>

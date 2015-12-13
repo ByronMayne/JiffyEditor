@@ -1,0 +1,148 @@
+﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+<#@ import namespace="Jiffy" #>
+<#+
+    public void GeneratePropertyDrawer(Jiffy.Essence essence)
+    {
+      WriteLine("using UnityEditor;");
+      WriteLine("using UnityEngine;");
+      WriteLine(string.Empty);
+      WriteLine("[CustomPropertyDrawer(typeof( " + essence.classType.FullName + " ))]");
+      WriteLine("public class " + essence.className + " : PropertyDrawer");
+      WriteLine("{"); 
+
+      if(essence.createContent)
+      {
+        PDContent(essence);
+      }
+
+      //Space
+      WriteLine(string.Empty);
+      PDVariable(essence); 
+
+      //Space
+      WriteLine(string.Empty);
+      PDPopulateSP(essence); 
+
+      //Space
+      WriteLine(string.Empty);
+      PDPropertyHeight(essence); 
+
+      //Space
+      WriteLine(string.Empty);
+      PDOnGUI(essence); 
+
+      PopIndent();
+      WriteLine("}");
+    }
+
+    public void PDContent(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+public GUIContent <#= info.Name #>Content = new GUIContent("<#= info.Name #>");
+<#+
+      }); 
+      PopIndent();
+    }
+
+    public void PDPopulateSP(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      WriteLine("/// <summary>");
+      WriteLine("/// Since PropertyDrawers are shared (they create one instance for many items) we can't");
+      WriteLine("/// store any local variables. This means that everytime we are setn a property we need");
+      WriteLine("/// to repopulate the SerializedProperties. This function does that.");
+      WriteLine("/// </summary>");
+      WriteLine("public void PopulateProperties(SerializedProperty property)");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+<#=info.Name#> = property.FindPropertyRelative("<#=info.Name#>"); 
+<#+
+      }); 
+      PopIndent();
+      WriteLine("}");
+      PopIndent(); 
+    }
+
+    public void PDVariable(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+/// <summary>
+/// Type: <#= TemplateUtility.NiceTypeName(info.FieldType) #>
+/// </summary>
+protected SerializedProperty <#= info.Name #>;
+<#+
+      }); 
+      PopIndent();
+    }
+
+    public void PDPropertyHeight(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      WriteLine("/// <summary>");
+      WriteLine("/// This property is used to set how much height space we are given to draw our inspector.");
+      WriteLine("/// We use the helper function to get the height because other property drawers can change");
+      WriteLine("/// the required height");
+      WriteLine("/// </summary>");
+      WriteLine("public override float GetPropertyHeight(SerializedProperty property, GUIContent label)");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      WriteLine("PopulateProperties(property);"); 
+      WriteLine(string.Empty);
+      WriteLine("float height = 0f;");
+      essence.Foreach( (FieldInfo info) => 
+      { 
+#>
+height += EditorGUI.GetPropertyHeight(<#=info.Name#>); 
+<#+
+      }); 
+      WriteLine("return height;"); 
+      PopIndent();
+      WriteLine("}"); 
+      PopIndent();
+    }
+
+    public void PDOnGUI(Jiffy.Essence essence)
+    {
+      PushIndent(essence.indent);
+      WriteLine("/// <summary>");
+      WriteLine("/// Inside this function you can add your own custom GUI");
+      WriteLine("/// for the inspector of a specific object class.");
+      WriteLine("/// </summary>");
+      WriteLine("public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)");
+      WriteLine("{");
+      PushIndent(essence.indent);
+      WriteLine("PopulateProperties(property);"); 
+      WriteLine(string.Empty);
+      WriteLine("position.height = EditorGUIUtility.singleLineHeight;");
+      WriteLine(string.Empty);
+      essence.Foreach( (FieldInfo info) => 
+      { 
+        if(essence.createContent)
+        {
+#>
+EditorGUI.PropertyField(position, <#= info.Name #>, <#= info.Name #>Content);
+<#+
+        }
+        else
+        {
+#>
+EditorGUI.PropertyField(position, <#= info.Name #>);
+<#+
+        }
+        WriteLine("position.y += EditorGUIUtility.singleLineHeight;");
+        WriteLine(string.Empty);
+      }); 
+      PopIndent(); 
+      WriteLine("}");
+    }
+#>
