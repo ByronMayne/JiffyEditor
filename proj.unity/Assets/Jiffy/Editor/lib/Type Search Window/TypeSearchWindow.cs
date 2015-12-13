@@ -22,7 +22,6 @@ namespace Jiffy.TypeSerach
     /// who will receive the event. 
     /// </summary>
     private EditorWindow m_Owner;
-    private GUIContent m_AssemblyTitle;
     [SerializeField]
     private Object m_Target;
 
@@ -143,8 +142,6 @@ namespace Jiffy.TypeSerach
         m_GeneratorNames[i] = ObjectNames.NicifyVariableName(m_GeneratorNames[i]);
       }
 
-
-      m_AssemblyTitle = new GUIContent("Used Assemblies");
       m_Types = new List<Type>();
       GetAssemblies();
       PopulateTypes();
@@ -407,8 +404,6 @@ namespace Jiffy.TypeSerach
       for (int i = 0; i < guids.Length; i++)
       {
         string path = AssetDatabase.GUIDToAssetPath(guids[i]);
-
-        Object obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
 
         if (path.EndsWith(".dll"))
         {

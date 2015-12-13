@@ -86,9 +86,9 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Condition="'$(Configuration)' == 'Release'" Name="BeforeBuild">
     <Message Text="Copying Source File" Importance="high"/>
-    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll'" Files="$(UnityProjectPath)$(TargetName).dll"/>
-    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).pdb'" Files="$(UnityProjectPath)$(TargetName).pdb"/>
-    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll.mdb'" Files="$(UnityProjectPath)$(TargetName).dll.mdb"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll')" Files="$(UnityProjectPath)$(TargetName).dll"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).pdb')" Files="$(UnityProjectPath)$(TargetName).pdb"/>
+    <Delete Condition="Exists('$(UnityProjectPath)$(TargetName).dll.mdb')" Files="$(UnityProjectPath)$(TargetName).dll.mdb"/>
     <ItemGroup>
       <SourceFiles Include="$(ProjectDir)Jiffy\**\*.*" />
     </ItemGroup>
