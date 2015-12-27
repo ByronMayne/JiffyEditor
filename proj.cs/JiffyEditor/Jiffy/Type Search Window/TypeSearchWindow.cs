@@ -22,6 +22,7 @@ namespace Jiffy.TypeSerach
     /// who will receive the event. 
     /// </summary>
     private EditorWindow m_Owner;
+
     [SerializeField]
     private Object m_Target;
 
@@ -64,7 +65,7 @@ namespace Jiffy.TypeSerach
       DrawTypeSelector();
       GUILayout.Space(4);
       DrawTypeTree();
-      DrawAssemblies();
+      DrawOptions();
       DrawButton();
     }
 
@@ -171,7 +172,7 @@ namespace Jiffy.TypeSerach
     /// This function is used to allow the user to toggle the Assemblies 
     /// that they want to look for types in. 
     /// </summary>
-    private void DrawAssemblies()
+    private void DrawOptions()
     {
       GUILayout.Space(4);
 
@@ -208,61 +209,74 @@ namespace Jiffy.TypeSerach
 
       GUILayout.BeginVertical((GUIStyle)"AnimationCurveEditorBackground", GUILayout.MinHeight(150), GUILayout.Height(height));
       {
-        m_AssemblyScrollPos = GUILayout.BeginScrollView(m_AssemblyScrollPos);
-        {
-          GUILayout.Label("User Assemblies", EditorStyles.boldLabel);
-          for (int i = 0; i < m_UserAssemblies.Count; i++)
-          {
-            EditorGUI.BeginChangeCheck();
-            {
-              m_UserAssemblies[i].useAssembly = GUILayout.Toggle(m_UserAssemblies[i].useAssembly, m_UserAssemblies[i].assemblyName);
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-              PopulateTypes();
-            }
-          }
-
-          if (m_UserAssemblies.Count == 0)
-          {
-            GUILayout.Label("[ No user Assemblies could be loaded]", EditorStyles.helpBox);
-          }
-
-          GUILayout.Label("Plugin Assemblies", EditorStyles.boldLabel);
-          for (int i = 0; i < m_PluginAssemblies.Count; i++)
-          {
-            EditorGUI.BeginChangeCheck();
-            {
-              m_PluginAssemblies[i].useAssembly = GUILayout.Toggle(m_PluginAssemblies[i].useAssembly, m_PluginAssemblies[i].assemblyName);
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-              PopulateTypes();
-            }
-          }
-
-          GUILayout.Label("Unity Assemblies", EditorStyles.boldLabel);
-          for (int i = 0; i < m_UnityAssemblies.Count; i++)
-          {
-            EditorGUI.BeginChangeCheck();
-            {
-              m_UnityAssemblies[i].useAssembly = GUILayout.Toggle(m_UnityAssemblies[i].useAssembly, m_UnityAssemblies[i].assemblyName);
-            }
-            if (EditorGUI.EndChangeCheck())
-            {
-              PopulateTypes();
-            }
-          }
-
-
-          if (m_UnityAssemblies.Count == 0)
-          {
-            GUILayout.Label("[ No Unity Assemblies could be loaded ]", EditorStyles.helpBox);
-          }
-        }
-        GUILayout.EndScrollView();
+        DrawAssemblies();
       }
       GUILayout.EndVertical();
+    }
+
+    private void DrawAssemblies()
+    {
+      m_AssemblyScrollPos = GUILayout.BeginScrollView(m_AssemblyScrollPos);
+      {
+        GUILayout.Label("User Assemblies", EditorStyles.boldLabel);
+        for (int i = 0; i < m_UserAssemblies.Count; i++)
+        {
+          EditorGUI.BeginChangeCheck();
+          {
+            m_UserAssemblies[i].useAssembly = GUILayout.Toggle(m_UserAssemblies[i].useAssembly, m_UserAssemblies[i].assemblyName);
+          }
+          if (EditorGUI.EndChangeCheck())
+          {
+            PopulateTypes();
+          }
+        }
+
+        if (m_UserAssemblies.Count == 0)
+        {
+#if UNITY_4_0 || UNITY_4_6
+          GUILayout.Label("[ No user Assemblies could be loaded]", GUI.skin.box);
+#else
+            GUILayout.Label("[ No user Assemblies could be loaded]", EditorStyles.helpBox);
+#endif
+        }
+
+        GUILayout.Label("Plugin Assemblies", EditorStyles.boldLabel);
+        for (int i = 0; i < m_PluginAssemblies.Count; i++)
+        {
+          EditorGUI.BeginChangeCheck();
+          {
+            m_PluginAssemblies[i].useAssembly = GUILayout.Toggle(m_PluginAssemblies[i].useAssembly, m_PluginAssemblies[i].assemblyName);
+          }
+          if (EditorGUI.EndChangeCheck())
+          {
+            PopulateTypes();
+          }
+        }
+
+        GUILayout.Label("Unity Assemblies", EditorStyles.boldLabel);
+        for (int i = 0; i < m_UnityAssemblies.Count; i++)
+        {
+          EditorGUI.BeginChangeCheck();
+          {
+            m_UnityAssemblies[i].useAssembly = GUILayout.Toggle(m_UnityAssemblies[i].useAssembly, m_UnityAssemblies[i].assemblyName);
+          }
+          if (EditorGUI.EndChangeCheck())
+          {
+            PopulateTypes();
+          }
+        }
+
+
+        if (m_UnityAssemblies.Count == 0)
+        {
+#if UNITY_4_0 || UNITY_4_6
+          GUILayout.Label("[ No Unity Assemblies could be loaded]", GUI.skin.box);
+#else
+            GUILayout.Label("[ No Unity Assemblies could be loaded]", EditorStyles.helpBox);
+#endif
+        }
+      }
+      GUILayout.EndScrollView();
     }
 
     /// <summary>
@@ -487,12 +501,15 @@ namespace Jiffy.TypeSerach
     /// <summary>
     /// This function tries to grab all our C# Assemblies
     /// and gets all the types that are contained in them. It
-    /// then adds them to a list to be dispalyed in our Editor Window. 
+    /// then adds them to a list to be displayed in our Editor Window. 
     /// </summary>
     private void PopulateTypes()
     {
-      titleContent = new GUIContent("Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString()));
-
+#if UNITY_4_0 || UNITY_4_6
+      this.title = "Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString());
+#else
+      this.titleContent = new GUIContent("Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString()));
+#endif 
       m_Types = new List<Type>();
       foreach (AssemblyToggle toggle in m_UserAssemblies)
       {
