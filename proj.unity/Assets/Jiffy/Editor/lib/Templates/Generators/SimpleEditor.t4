@@ -1,5 +1,6 @@
-﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll"#>
+﻿<#@ assembly name="$(ProjectDir)bin/Debug/JiffyEditor.dll"#>
 <#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Collections" #>
 <#+
     public void GenerateSimpleEditor(Essence essence)
     {
@@ -110,18 +111,19 @@ protected SerializedProperty <#= info.Name #>;
       }
       essence.Foreach( (FieldInfo info) => 
       { 
-        if(essence.createContent)
-        {
 #>
-EditorGUILayout.PropertyField(<#= info.Name #>, <#= info.Name #>Content);
-<#+
-        }
-        else
+
+EditorGUILayout.PropertyField( property:<#= info.Name #><#+
+        if(essence.createContent) 
         {
-#>
-EditorGUILayout.PropertyField(<#= info.Name #>);
-<#+
+            #>, label:<#= info.Name #>Content<#+
         }
+        if(info.FieldType.IsArray || typeof(IList).IsAssignableFrom(info.FieldType))
+        {
+          #>, includeChildren:true<#+
+        }
+        #>);
+<#+
       }); 
       PopIndent(); 
       WriteLine("}");

@@ -17,11 +17,19 @@ namespace Jiffy.TypeSerach
     /// event that will be sent to your Editor Window. 
     /// </summary>
     public const string ITEM_SELECTED_COMMAND = "TypeSearchWindow:Select";
+
+
+    private readonly GUIContent[] OptionLabels = new[] { new GUIContent("Generator Settings"), new GUIContent("Assembly Options") };
+    private const short OUTPUT_OPTIONS = 0;
+    private const short ASSEMBLY_OPTIONS = 1;
+
     /// <summary>
     /// This EditorWindow is used with the imGUI event system. This is
     /// who will receive the event. 
     /// </summary>
     private EditorWindow m_Owner;
+
+    public IntEditorPref m_OptionsPageSelection = new IntEditorPref("TypeSearchWindow:OptionsPageSelection", 0);
 
     [SerializeField]
     private Object m_Target;
@@ -48,6 +56,10 @@ namespace Jiffy.TypeSerach
     private Vector2 m_TypesScrollPos = new Vector2();
     private Vector2 m_AssemblyScrollPos = new Vector2();
 
+    [SerializeField]
+    private Essence m_Essence;
+    private EssenceEditor m_EssenceEditor;
+
     public EditorWindow owner
     {
       get { return m_Owner; }
@@ -68,6 +80,7 @@ namespace Jiffy.TypeSerach
       DrawOptions();
       DrawButton();
     }
+
 
     private void DrawTypeSelector()
     {
@@ -135,6 +148,10 @@ namespace Jiffy.TypeSerach
       m_ShowUserAssemblies.Load();
       m_ShowUnityAssemblies.Load();
       m_CreateAnother.Load();
+      m_OptionsPageSelection.Load();
+      m_Essence = new Essence();
+      m_EssenceEditor = (EssenceEditor)EssenceEditor.CreateEditor(m_Essence, typeof(EssenceEditor));
+      m_EssenceEditor.OnEnable();
 
       m_GeneratorNames = System.Enum.GetNames(typeof(GeneratorTypes));
 
@@ -157,6 +174,7 @@ namespace Jiffy.TypeSerach
       m_ShowUserAssemblies.Save();
       m_ShowUnityAssemblies.Save();
       m_CreateAnother.Save();
+      m_OptionsPageSelection.Save();
     }
 
     private void Cancel()
@@ -204,14 +222,30 @@ namespace Jiffy.TypeSerach
         this.Repaint();
       }
 
-
       EditorGUIUtility.AddCursorRect(dragRect, MouseCursor.ResizeVertical);
 
       GUILayout.BeginVertical((GUIStyle)"AnimationCurveEditorBackground", GUILayout.MinHeight(150), GUILayout.Height(height));
       {
-        DrawAssemblies();
+        m_OptionsPageSelection.value = GUILayout.Toolbar(m_OptionsPageSelection.value, OptionLabels);
+       
+        if (m_OptionsPageSelection.value == OUTPUT_OPTIONS)
+        {
+          DrawOutputOptions();
+        }
+        else if (m_OptionsPageSelection.value == ASSEMBLY_OPTIONS)
+        {
+          DrawAssemblies();
+        }
       }
       GUILayout.EndVertical();
+    }
+
+    private void DrawOutputOptions()
+    {
+      if (m_EssenceEditor != null)
+      {
+        m_EssenceEditor.OnInspectorGUI();
+      }
     }
 
     private void DrawAssemblies()
@@ -360,6 +394,7 @@ namespace Jiffy.TypeSerach
       }
 
       MethodInfo method = null;
+
       Type type = Type.GetType(m_MethodAssemblyQualifiedName.value);
 
       if (type != null)
@@ -509,7 +544,7 @@ namespace Jiffy.TypeSerach
       this.title = "Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString());
 #else
       this.titleContent = new GUIContent("Create " + ObjectNames.NicifyVariableName(m_GeneratorType.ToString()));
-#endif 
+#endif
       m_Types = new List<Type>();
       foreach (AssemblyToggle toggle in m_UserAssemblies)
       {

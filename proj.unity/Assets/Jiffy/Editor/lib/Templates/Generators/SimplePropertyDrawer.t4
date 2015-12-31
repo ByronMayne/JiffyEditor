@@ -1,4 +1,4 @@
-﻿<#@ assembly name="../../bin/Debug/JiffyEditor.dll" #>
+﻿<#@ assembly name="$(ProjectDir)bin/Debug/JiffyEditor.dll" #>
 <#@ import namespace="Jiffy" #>
 <#+
     public void GeneratePropertyDrawer(Jiffy.Essence essence)
@@ -127,18 +127,19 @@ height += EditorGUI.GetPropertyHeight(<#=info.Name#>);
       WriteLine(string.Empty);
       essence.Foreach( (FieldInfo info) => 
       { 
-        if(essence.createContent)
-        {
 #>
-EditorGUI.PropertyField(position, <#= info.Name #>, <#= info.Name #>Content);
-<#+
-        }
-        else
+EditorGUI.PropertyField( position:position, property:<#= info.Name #><#+
+        if(essence.createContent) 
         {
-#>
-EditorGUI.PropertyField(position, <#= info.Name #>);
-<#+
+            #>, label:<#= info.Name #>Content<#+
         }
+        if(info.FieldType.IsArray || typeof(IList).IsAssignableFrom(info.FieldType))
+        {
+          #>, includeChildren:true<#+
+        }
+        #>);
+<#+
+
         WriteLine("position.y += EditorGUIUtility.singleLineHeight;");
         WriteLine(string.Empty);
       }); 
