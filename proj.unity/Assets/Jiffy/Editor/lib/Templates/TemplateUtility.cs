@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Collections;
 
 public class TemplateUtility
 {
@@ -98,12 +99,32 @@ public class TemplateUtility
     //It has to be public or have the [SerializeField] attribute. 
     if (field.IsPublic || FieldHasAttribute<SerializeField>(field))
     {
+      Type fieldType = field.FieldType;
+
       //We are serializeble. 
-      if (IsBaseType(field.FieldType) || IsUnityType(field.FieldType))
+      if (IsBaseType(fieldType) || IsUnityType(fieldType))
       {
         //We know we can serialize these values.
         return true;
       }
+
+      //Is it an array?
+      if(fieldType.IsArray && fieldType.HasElementType)
+      {
+        Type elementType = fieldType.GetElementType();
+
+        if(IsBaseType(elementType) || IsUnityType(elementType))
+        {
+          return true;
+        }
+      }
+
+      //Does it inherit from List<>?
+      if(typeof(IList).IsAssignableFrom(fieldType) && typeof(ICollection).IsAssignableFrom(fieldType) && fieldType.IsGenericType)
+      {
+        return true;
+      }
+
 
       //It's not a normal type so lets see if it's value is Serializable
       if (FieldHasAttribute<SerializableAttribute>(field))

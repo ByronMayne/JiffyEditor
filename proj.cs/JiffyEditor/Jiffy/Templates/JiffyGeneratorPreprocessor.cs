@@ -10,6 +10,7 @@
 namespace Jiffy.Templates
 {
     using System.Reflection;
+    using System.Collections;
     using Jiffy;
     using System;
     
@@ -17,7 +18,7 @@ namespace Jiffy.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\JiffyGeneratorPreprocessor.tt"
+    #line 1 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\JiffyGeneratorPreprocessor.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "12.0.0.0")]
     public partial class JiffyGeneratorPreprocessor : JiffyGeneratorPreprocessorBase
     {
@@ -30,7 +31,7 @@ namespace Jiffy.Templates
             this.Write("\r\n");
             this.Write("\r\n");
             
-            #line 7 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\JiffyGeneratorPreprocessor.tt"
+            #line 7 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\JiffyGeneratorPreprocessor.tt"
  
    if(essence.outputEditorType == GeneratorTypes.CustomEditor)
    {
@@ -47,7 +48,7 @@ namespace Jiffy.Templates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 3 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 4 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
     public void GenerateSimpleEditor(Essence essence)
     {
@@ -91,42 +92,42 @@ namespace Jiffy.Templates
         #line default
         #line hidden
         
-        #line 41 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 42 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("public GUIContent ");
 
         
         #line default
         #line hidden
         
-        #line 42 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 43 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 42 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 43 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("Content = new GUIContent(\"");
 
         
         #line default
         #line hidden
         
-        #line 42 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 43 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 42 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 43 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("\");\r\n");
 
         
         #line default
         #line hidden
         
-        #line 43 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 44 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
       }); 
       PopIndent();
@@ -147,42 +148,42 @@ this.Write("\");\r\n");
         #line default
         #line hidden
         
-        #line 58 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 59 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("/// <summary>\r\n/// Type: ");
 
         
         #line default
         #line hidden
         
-        #line 60 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 61 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(TemplateUtility.NiceTypeName(info.FieldType)));
 
         
         #line default
         #line hidden
         
-        #line 60 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 61 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("\r\n/// </summary>\r\nprotected SerializedProperty ");
 
         
         #line default
         #line hidden
         
-        #line 62 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 63 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 62 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 63 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(";\r\n");
 
         
         #line default
         #line hidden
         
-        #line 63 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 64 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
       }); 
       PopIndent();
@@ -206,35 +207,35 @@ this.Write(";\r\n");
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 83 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 83 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(" = serializedObject.FindProperty(\"");
 
         
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 83 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 83 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write("\");\r\n");
 
         
         #line default
         #line hidden
         
-        #line 83 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 84 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
       }); 
       PopIndent(); 
@@ -265,82 +266,89 @@ this.Write("\");\r\n");
       }
       essence.Foreach( (FieldInfo info) => 
       { 
-        if(essence.createContent)
+
+        
+        #line default
+        #line hidden
+        
+        #line 114 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+this.Write("\r\nEditorGUILayout.PropertyField( property:");
+
+        
+        #line default
+        #line hidden
+        
+        #line 116 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
+
+        
+        #line default
+        #line hidden
+        
+        #line 116 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+
+        if(essence.createContent) 
         {
+            
+        
+        #line default
+        #line hidden
+        
+        #line 119 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+this.Write(", label:");
 
         
         #line default
         #line hidden
         
-        #line 115 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write("EditorGUILayout.PropertyField(");
-
-        
-        #line default
-        #line hidden
-        
-        #line 116 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 119 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 116 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write(", ");
+        #line 119 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+this.Write("Content");
 
         
         #line default
         #line hidden
         
-        #line 116 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
-
-        
-        #line default
-        #line hidden
-        
-        #line 116 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write("Content);\r\n");
-
-        
-        #line default
-        #line hidden
-        
-        #line 117 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 119 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
         }
-        else
+        if(info.FieldType.IsArray || typeof(IList).IsAssignableFrom(info.FieldType))
         {
+          
+        
+        #line default
+        #line hidden
+        
+        #line 123 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+this.Write(", includeChildren:true");
 
         
         #line default
         #line hidden
         
-        #line 121 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write("EditorGUILayout.PropertyField(");
+        #line 123 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
+        }
+        
         
         #line default
         #line hidden
         
-        #line 122 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
-this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
-
-        
-        #line default
-        #line hidden
-        
-        #line 122 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 125 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 this.Write(");\r\n");
 
         
         #line default
         #line hidden
         
-        #line 123 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
+        #line 126 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimpleEditor.t4"
 
-        }
       }); 
       PopIndent(); 
       WriteLine("}");
@@ -358,7 +366,7 @@ this.Write(");\r\n");
         #line default
         #line hidden
         
-        #line 3 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 3 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
     public void GeneratePropertyDrawer(Jiffy.Essence essence)
     {
@@ -405,42 +413,42 @@ this.Write(");\r\n");
         #line default
         #line hidden
         
-        #line 44 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 44 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("public GUIContent ");
 
         
         #line default
         #line hidden
         
-        #line 45 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 45 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 45 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 45 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("Content = new GUIContent(\"");
 
         
         #line default
         #line hidden
         
-        #line 45 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 45 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 45 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 45 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("\");\r\n");
 
         
         #line default
         #line hidden
         
-        #line 46 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 46 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
       }); 
       PopIndent();
@@ -464,35 +472,35 @@ this.Write("\");\r\n");
         #line default
         #line hidden
         
-        #line 65 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 65 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 65 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 65 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(" = property.FindPropertyRelative(\"");
 
         
         #line default
         #line hidden
         
-        #line 65 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 65 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 65 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 65 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("\"); \r\n");
 
         
         #line default
         #line hidden
         
-        #line 66 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 66 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
       }); 
       PopIndent();
@@ -510,42 +518,42 @@ this.Write("\"); \r\n");
         #line default
         #line hidden
         
-        #line 78 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 78 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("/// <summary>\r\n/// Type: ");
 
         
         #line default
         #line hidden
         
-        #line 80 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 80 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(TemplateUtility.NiceTypeName(info.FieldType)));
 
         
         #line default
         #line hidden
         
-        #line 80 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 80 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("\r\n/// </summary>\r\nprotected SerializedProperty ");
 
         
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 82 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 82 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 82 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(";\r\n");
 
         
         #line default
         #line hidden
         
-        #line 83 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 83 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
       }); 
       PopIndent();
@@ -572,28 +580,28 @@ this.Write(";\r\n");
         #line default
         #line hidden
         
-        #line 104 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 104 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("height += EditorGUI.GetPropertyHeight(");
 
         
         #line default
         #line hidden
         
-        #line 105 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 105 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 105 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 105 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write("); \r\n");
 
         
         #line default
         #line hidden
         
-        #line 106 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 106 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
       }); 
       WriteLine("return height;"); 
@@ -618,82 +626,90 @@ this.Write("); \r\n");
       WriteLine(string.Empty);
       essence.Foreach( (FieldInfo info) => 
       { 
-        if(essence.createContent)
+
+        
+        #line default
+        #line hidden
+        
+        #line 130 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+this.Write("EditorGUI.PropertyField( position:position, property:");
+
+        
+        #line default
+        #line hidden
+        
+        #line 131 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
+
+        
+        #line default
+        #line hidden
+        
+        #line 131 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+
+        if(essence.createContent) 
         {
+            
+        
+        #line default
+        #line hidden
+        
+        #line 134 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+this.Write(", label:");
 
         
         #line default
         #line hidden
         
-        #line 132 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write("EditorGUI.PropertyField(position, ");
-
-        
-        #line default
-        #line hidden
-        
-        #line 133 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 134 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
 
         
         #line default
         #line hidden
         
-        #line 133 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write(", ");
+        #line 134 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+this.Write("Content");
 
         
         #line default
         #line hidden
         
-        #line 133 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
-
-        
-        #line default
-        #line hidden
-        
-        #line 133 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write("Content);\r\n");
-
-        
-        #line default
-        #line hidden
-        
-        #line 134 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 134 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
         }
-        else
+        if(info.FieldType.IsArray || typeof(IList).IsAssignableFrom(info.FieldType))
         {
+          
+        
+        #line default
+        #line hidden
+        
+        #line 138 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+this.Write(", includeChildren:true");
 
         
         #line default
         #line hidden
         
-        #line 138 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write("EditorGUI.PropertyField(position, ");
+        #line 138 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
+        }
+        
         
         #line default
         #line hidden
         
-        #line 139 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
-this.Write(this.ToStringHelper.ToStringWithCulture(info.Name));
-
-        
-        #line default
-        #line hidden
-        
-        #line 139 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 140 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 this.Write(");\r\n");
 
         
         #line default
         #line hidden
         
-        #line 140 "C:\Users\ByronMayne\Documents\Visual Studio 2013\Projects\JiffyEditor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
+        #line 141 "C:\Users\Byron\Documents\jiffy-editor\proj.cs\JiffyEditor\Jiffy\Templates\Generators\SimplePropertyDrawer.t4"
 
-        }
+
         WriteLine("position.y += EditorGUIUtility.singleLineHeight;");
         WriteLine(string.Empty);
       }); 

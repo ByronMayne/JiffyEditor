@@ -71,9 +71,11 @@ namespace Jiffy
 
         if (asm != null)
         {
+          string path = AssetDatabase.GetAssetPath(script);
+
           Type type = asm.GetType(script.name);
 
-          CreateEditor(type, editorType);
+          CreateEditor(type, editorType, Path.GetDirectoryName(path) + "/");
         }
         else
         {
@@ -89,7 +91,7 @@ namespace Jiffy
     /// </summary>
     /// <param name="type">The type of class that you want to create an Editor for.</param>
     /// <param name="editorType">The type of Editor you want to create.</param>
-    public static void CreateEditor(Type type, GeneratorTypes editorType)
+    public static void CreateEditor(Type type, GeneratorTypes editorType, string path = "")
     {
 
       if (editorType == GeneratorTypes.CustomEditor && !IsValidForCustomEditor(type))
@@ -105,7 +107,7 @@ namespace Jiffy
 
       if (type != null)
       {
-        string assetPath = EditorUtility.SaveFilePanelInProject("Save Location", type.Name + "Editor", "cs", "The location you want to save your Editor");
+        string assetPath = EditorUtility.SaveFilePanelInProject("Save Location", type.Name + "Editor", "cs", "The location you want to save your Editor", path);
 
         if (string.IsNullOrEmpty(assetPath))
         {
@@ -124,11 +126,12 @@ namespace Jiffy
 
         string @class = processor.TransformText();
 
+
         File.WriteAllText(assetPath, @class);
 
         AssetDatabase.ImportAsset(assetPath);
 
-        Debug.LogFormat("Jiffy | {0}.cs was created for {1}.cs. The script is located {2}", type.Name, assetName, assetPath);
+        Debug.Log(string.Format("Jiffy | {0}.cs was created for {1}.cs. The script is located {2}", type.Name, assetName, assetPath));
 
         Object script = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Object));
 

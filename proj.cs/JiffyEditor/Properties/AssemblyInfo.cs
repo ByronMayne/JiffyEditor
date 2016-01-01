@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("JiffyEditor")]
 [assembly: AssemblyCopyright("Copyright Byron Mayne©  2015")]
 [assembly: AssemblyDescription(
-@"Built: 10/17/2015
+@"Built: 12/27/2015
 By: Byron Mayne
 Unity Version: 5.1.1p2")]
 

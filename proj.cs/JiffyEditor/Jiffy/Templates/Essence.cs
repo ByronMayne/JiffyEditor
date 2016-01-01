@@ -23,8 +23,11 @@ namespace Jiffy
   {
     [SerializeField]
     private string m_ClassName;
-    [SerializeField]
     private string m_Indent = "  ";
+    [SerializeField, Range(0, 10)]
+    private int m_IndentCount = 4;
+    [SerializeField]
+    private bool m_CustomName;
     [SerializeField]
     private bool m_CreateContent;
     internal Type m_ClassType;
@@ -39,16 +42,10 @@ namespace Jiffy
 
     public string indent
     {
-      get { return m_Indent; }
       set { m_Indent = value; }
-    }
-
-    public int indentCount
-    {
-      get { return m_Indent.Length; }
-      set
+      get 
       {
-        if (m_Indent.Length != value)
+        if (m_IndentCount != m_Indent.Length)
         {
           m_Indent = string.Empty;
 
@@ -57,6 +54,17 @@ namespace Jiffy
             m_Indent += " ";
           }
         }
+
+        return m_Indent; 
+      }
+    }
+
+    public int indentCount
+    {
+      get { return m_Indent.Length; }
+      set
+      {
+ 
       }
     }
 
